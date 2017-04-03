@@ -1,14 +1,10 @@
 package com.example.beyondtouch;
 
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -21,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     private Point p;
     private Sensor accelSensor;
-    private ImageView dot;
     private TextView coords, XTextView;
     private int screenHeight, screenWidth;
     private FrameLayout FLleft, FLright, FLtop, FLbottom;
