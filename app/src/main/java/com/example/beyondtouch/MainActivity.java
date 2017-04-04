@@ -1,16 +1,22 @@
 package com.example.beyondtouch;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -23,7 +29,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private static int RIGHT_MARGIN, LEFT_MARGIN, TOP_MARGIN, BOTTOM_MARGIN;
     private boolean leftFlag, rightFlag, topFlag, bottomFlag;
-
+    public final static int RIGHT_TIMER = 0, TOP_TIMER = 1, LEFT_TIMER = 2, BOTTOM_TIMER = 3;
+    private Timer timer;
+    private OurTimerTask ott;
 
 
     @Override
@@ -52,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         LEFT_MARGIN = 70;
         TOP_MARGIN = screenHeight - 70;
         BOTTOM_MARGIN = 70;
+
+        timer = new Timer();
+        ott = new OurTimerTask(-1,taskHandler);
     }
 
     @Override
@@ -81,8 +92,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         if(axisY > 3 ) {
             bottomFlag = true;
-        } else if(axisY < -3) {
+            leftFlag = false;
+            rightFlag = false;
+        } else if(axisY < -2) {
             topFlag = true;
+            rightFlag = false;
+            leftFlag = false;
         } else {
            topFlag = false;
             bottomFlag = false;
@@ -90,31 +105,55 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if(leftFlag) {
             XTextView.setText("LEFT");
-            FLleft.setBackgroundColor(0x330099CC);
+            if(!ott.isAlreadyActive(LEFT_TIMER)) {
+                timer.cancel();
+                timer = new Timer();
+                ott = new OurTimerTask(LEFT_TIMER, taskHandler);
+                timer.schedule(ott, 1500);
+            }FLleft.setBackgroundColor(0x330099CC);
         } else  {
-            XTextView.setText("MIDDLE");
             FLleft.setBackgroundColor(0xFF0099CC);
         }
         if(rightFlag) {
             XTextView.setText("RIGHT");
-            FLright.setBackgroundColor(0x33669900);
+
+            if(!ott.isAlreadyActive(RIGHT_TIMER)) {
+                timer.cancel();
+                timer = new Timer();
+                ott = new OurTimerTask(RIGHT_TIMER, taskHandler);
+                timer.schedule(ott, 1500);
+            }FLright.setBackgroundColor(0x33669900);
         } else {
-            XTextView.setText("MIDDLE");
             FLright.setBackgroundColor(0xFF669900);
         }
         if(topFlag) {
             XTextView.setText("TOP");
+            if(!ott.isAlreadyActive(TOP_TIMER)) {
+                timer.cancel();
+                timer = new Timer();
+                ott = new OurTimerTask(TOP_TIMER, taskHandler);
+                timer.schedule(ott, 1500);
+        }
             FLtop.setBackgroundColor(0x33AA66CC);
         } else {
-            XTextView.setText("MIDDLE");
             FLtop.setBackgroundColor(0xFFAA66CC);
         }
         if(bottomFlag) {
             XTextView.setText("BOTTOM");
+
+            if(!ott.isAlreadyActive(BOTTOM_TIMER)) {
+                timer.cancel();
+                timer = new Timer();
+                ott = new OurTimerTask(BOTTOM_TIMER, taskHandler);
+                timer.schedule(ott, 1500);
+            }
             FLbottom.setBackgroundColor(0x33ff8800);
         } else {
-            XTextView.setText("MIDDLE");
             FLbottom.setBackgroundColor(0xFFff8800);
+    }
+        if(!topFlag && !bottomFlag && !rightFlag && !leftFlag){
+            timer.cancel();
+            XTextView.setText("MIDDLE");
         }
 
 
@@ -194,7 +233,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         */
     }
 
-
+    public void vibrate(){
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 100 milliseconds
+        v.vibrate(100);
+    }
 
     @Override
     protected void onResume() {
@@ -206,5 +249,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager.unregisterListener(this);
         super.onPause();
     }
+
+    private Handler taskHandler = new Handler(){
+      public void dispatchMessage(android.os.Message msg){
+          switch(msg.what) {
+              case RIGHT_TIMER:
+                  //aca.vibrate();
+                  Log.d("RIGHT", "RIGHT");
+                  break;
+              case BOTTOM_TIMER:
+                  Log.d("BOTTOM", "BOTTOM");
+                  //aca.vibrate();
+                  break;
+              case LEFT_TIMER:
+                  Log.d("LEFT", "LEFT");
+                  //aca.vibrate();
+                  break;
+              case TOP_TIMER:
+                  Log.d("TOP", "TOP");
+                  //aca.vibrate();
+                  break;
+          }
+          vibrate();
+      };
+    };
 
 }
