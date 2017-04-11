@@ -1,6 +1,7 @@
 package com.example.beyondtouch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -8,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -256,6 +258,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
               case RIGHT_TIMER:
                   //aca.vibrate();
                   Log.d("RIGHT", "RIGHT");
+
+                  Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                  if (intent.resolveActivity(getPackageManager()) != null) {
+                      startActivity(intent);
+                  }
                   break;
               case BOTTOM_TIMER:
                   Log.d("BOTTOM", "BOTTOM");
