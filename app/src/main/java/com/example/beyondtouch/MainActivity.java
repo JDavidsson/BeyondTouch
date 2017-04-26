@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.provider.AlarmClock;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public final static int RIGHT_TIMER = 0, TOP_TIMER = 1, LEFT_TIMER = 2, BOTTOM_TIMER = 3;
     private Timer timer;
     private OurTimerTask ott;
+    private int time = 750;
 
 
     @Override
@@ -111,10 +113,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 timer.cancel();
                 timer = new Timer();
                 ott = new OurTimerTask(LEFT_TIMER, taskHandler);
-                timer.schedule(ott, 1500);
-            }FLleft.setBackgroundColor(0x330099CC);
+                timer.schedule(ott, time);
+            }FLleft.setBackgroundColor(0xFF0099CC);
         } else  {
-            FLleft.setBackgroundColor(0xFF0099CC);
+            FLleft.setBackgroundColor(0x330099CC);
         }
         if(rightFlag) {
             XTextView.setText("RIGHT");
@@ -123,10 +125,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 timer.cancel();
                 timer = new Timer();
                 ott = new OurTimerTask(RIGHT_TIMER, taskHandler);
-                timer.schedule(ott, 1500);
-            }FLright.setBackgroundColor(0x33669900);
+                timer.schedule(ott, time);
+            }FLright.setBackgroundColor(0xFF669900);
         } else {
-            FLright.setBackgroundColor(0xFF669900);
+            FLright.setBackgroundColor(0x33669900);
         }
         if(topFlag) {
             XTextView.setText("TOP");
@@ -134,11 +136,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 timer.cancel();
                 timer = new Timer();
                 ott = new OurTimerTask(TOP_TIMER, taskHandler);
-                timer.schedule(ott, 1500);
+                timer.schedule(ott, time);
         }
-            FLtop.setBackgroundColor(0x33AA66CC);
-        } else {
             FLtop.setBackgroundColor(0xFFAA66CC);
+        } else {
+            FLtop.setBackgroundColor(0x33AA66CC);
         }
         if(bottomFlag) {
             XTextView.setText("BOTTOM");
@@ -147,11 +149,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 timer.cancel();
                 timer = new Timer();
                 ott = new OurTimerTask(BOTTOM_TIMER, taskHandler);
-                timer.schedule(ott, 1500);
+                timer.schedule(ott, time);
             }
-            FLbottom.setBackgroundColor(0x33ff8800);
-        } else {
             FLbottom.setBackgroundColor(0xFFff8800);
+        } else {
+            FLbottom.setBackgroundColor(0x33ff8800);
     }
         if(!topFlag && !bottomFlag && !rightFlag && !leftFlag){
             timer.cancel();
@@ -267,6 +269,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
               case BOTTOM_TIMER:
                   Log.d("BOTTOM", "BOTTOM");
                   //aca.vibrate();
+                  Intent intent2 = new Intent(AlarmClock.ACTION_SET_ALARM);
+                  if (intent2.resolveActivity(getPackageManager()) != null) {
+                      intent2.putExtra(AlarmClock.EXTRA_HOUR, 8);
+                      intent2.putExtra(AlarmClock.EXTRA_MINUTES, 10);
+                      startActivity(intent2);
+                  }
                   break;
               case LEFT_TIMER:
                   Log.d("LEFT", "LEFT");
@@ -275,6 +283,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
               case TOP_TIMER:
                   Log.d("TOP", "TOP");
                   //aca.vibrate();
+                  Intent intent4 = new Intent(AlarmClock.ACTION_SHOW_ALARMS);
+                  if (intent4.resolveActivity(getPackageManager()) != null) {
+                      startActivity(intent4);
+                  }
                   break;
           }
           vibrate();
