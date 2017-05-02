@@ -48,7 +48,7 @@
             android:id="@+id/alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/alarm" />
+            app:srcCompat="@mipmap/alarm" />
     </FrameLayout>
 
 
@@ -68,7 +68,7 @@
             android:id="@+id/call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/call" />
+            app:srcCompat="@mipmap/call" />
     </FrameLayout>
 
     <FrameLayout
@@ -101,7 +101,7 @@
             android:id="@+id/camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/camera" />
+            app:srcCompat="@mipmap/camera" />
     </FrameLayout>
 
     <ImageView
@@ -116,7 +116,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tilt" />
+        app:srcCompat="@mipmap/tilt" />
 
     <TextView
         android:id="@+id/luta"
