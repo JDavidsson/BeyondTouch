@@ -33,7 +33,7 @@ import java.util.Timer;
  * Use the {@link ContactsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ContactsFragment extends Fragment implements SensorEventListener {
+public class ContactsFragment extends MainFragment implements SensorEventListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -133,6 +133,7 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
         }
     }
 
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -141,6 +142,7 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        super.onSensorChanged(event);
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             updatePointer(event);
         }
@@ -266,6 +268,7 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
 
     private Handler taskHandler = new Handler(){
         public void dispatchMessage(android.os.Message msg){
+            Intent intent = null;
             switch(msg.what) {
                 case RIGHT_TIMER:
                     //aca.vibrate();
@@ -279,8 +282,12 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
                 case LEFT_TIMER:
                     Log.d("LEFT", "LEFT");
 
-
                     //aca.vibrate();
+                    //Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + "90510"));
+                    startActivity(intent);
+                    startActivity(intent);
                     break;
                 case TOP_TIMER:
                     Log.d("TOP", "TOP");
