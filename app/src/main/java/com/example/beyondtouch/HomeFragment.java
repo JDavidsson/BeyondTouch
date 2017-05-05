@@ -122,6 +122,9 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         FLtop =(FrameLayout) v.findViewById(R.id.frameLayoutTop);
         FLbottom=(FrameLayout) v.findViewById(R.id.frameLayoutBottom);
 
+        getActivity().setTitle(getContext().getString(R.string.title_home));
+
+
         return v;
     }
 
@@ -182,9 +185,9 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(LEFT_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }FLleft.setBackgroundColor(0xFF0099CC);
+            }FLleft.setAlpha(1f);
         } else  {
-            FLleft.setBackgroundColor(0x330099CC);
+            FLleft.setAlpha(0.3f);
         }
         if(rightFlag) {
             XTextView.setText("RIGHT");
@@ -194,9 +197,9 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(RIGHT_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }FLright.setBackgroundColor(0xFF669900);
-        } else {
-            FLright.setBackgroundColor(0x33669900);
+            }FLright.setAlpha(1f);
+        } else  {
+            FLright.setAlpha(0.3f);
         }
         if(topFlag) {
             XTextView.setText("TOP");
@@ -205,10 +208,9 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(TOP_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }
-            FLtop.setBackgroundColor(0xFFAA66CC);
-        } else {
-            FLtop.setBackgroundColor(0x33AA66CC);
+            }FLtop.setAlpha(1f);
+        } else  {
+            FLtop.setAlpha(0.3f);
         }
         if(bottomFlag) {
             XTextView.setText("BOTTOM");
@@ -218,10 +220,9 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(BOTTOM_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }
-            FLbottom.setBackgroundColor(0xFFff8800);
-        } else {
-            FLbottom.setBackgroundColor(0x33ff8800);
+            }FLbottom.setAlpha(1f);
+        } else  {
+            FLbottom.setAlpha(0.3f);
         }
         if(!topFlag && !bottomFlag && !rightFlag && !leftFlag){
             timer.cancel();
@@ -309,6 +310,4 @@ public class HomeFragment extends Fragment implements SensorEventListener {
             vibrate();
         };
     };
-
-
 }

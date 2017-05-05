@@ -1,9 +1,6 @@
 package com.example.beyondtouch;
 
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.TextView;
 
 import java.util.TimerTask;
 
@@ -22,7 +19,8 @@ public class OurTimerTask extends TimerTask {
         this.handler = handler;
     }
 
-    boolean isAlreadyActive(int currArea){
+    boolean isAlreadyActive(int currArea)
+    {
         return area == currArea;
     }
 

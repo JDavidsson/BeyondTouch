@@ -11,10 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.provider.AlarmClock;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -123,6 +120,8 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
         FLtop =(FrameLayout) v.findViewById(R.id.frameLayoutTop);
         FLbottom=(FrameLayout) v.findViewById(R.id.frameLayoutBottom);
 
+        getActivity().setTitle(getContext().getString(R.string.title_home) + " >> " + "Contacs");
+
         return v;
     }
 
@@ -146,6 +145,8 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
         }
     }
 
+
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
     }
@@ -153,6 +154,7 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
     public void updatePointer(SensorEvent event){
         float axisX = event.values[0];
         float axisY = event.values[1];
+
         coords.setText("X:" + axisX + "\n p.x : " + p.x + "\n Y: " + axisY + "\n p.y " + p.y);
 
         if(axisX > 4) {
@@ -266,31 +268,51 @@ public class ContactsFragment extends Fragment implements SensorEventListener {
 
     private Handler taskHandler = new Handler(){
         public void dispatchMessage(android.os.Message msg){
+
+            Intent intent = null;
             switch(msg.what) {
                 case RIGHT_TIMER:
-                    //aca.vibrate();
                     Log.d("RIGHT", "RIGHT");
-
+                    //Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + "90510"));
+                    startActivity(intent);
                     break;
                 case BOTTOM_TIMER:
                     Log.d("BOTTOM", "BOTTOM");
-                    //aca.vibrate();
+                    //Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + "90510"));
+                    startActivity(intent);
                     break;
                 case LEFT_TIMER:
                     Log.d("LEFT", "LEFT");
+                    //Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + "90510"));
+                    startActivity(intent);
+                    startActivity(intent);
 
-
-                    //aca.vibrate();
                     break;
                 case TOP_TIMER:
                     Log.d("TOP", "TOP");
-                    //aca.vibrate();
+                    //Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + "90510"));
+                    startActivity(intent);
+                    startActivity(intent);
+
+                    /*
+                    Log.d("RIGHT", "RIGHT");
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.popBackStack();
+                    */
+
 
                     break;
             }
             vibrate();
         };
     };
-
 
 }
