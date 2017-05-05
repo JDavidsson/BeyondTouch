@@ -11,11 +11,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-<<<<<<< Updated upstream
     CustomFragment ff;
-=======
-    private MainFragment mainFragment;
->>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +26,4 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.container, ff).commit();
         }
     }
-
-
-<<<<<<< Updated upstream
-=======
-
-
-
-
-
->>>>>>> Stashed changes
 }
