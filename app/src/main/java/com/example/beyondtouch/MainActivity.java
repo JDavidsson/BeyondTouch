@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Fragment ff = new HomeFragment();
-        ff = new CustomFragment();
+        Fragment ff = new HomeFragment();
+        //ff = new CustomFragment();
 
 
         if (savedInstanceState == null) {

@@ -32,7 +32,7 @@ import java.util.Timer;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends MainFragment implements SensorEventListener {
+public class HomeFragment extends Fragment implements SensorEventListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -143,7 +143,6 @@ public class HomeFragment extends MainFragment implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        super.onSensorChanged(event);
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             updatePointer(event);
         }

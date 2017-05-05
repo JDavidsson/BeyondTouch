@@ -270,37 +270,38 @@ public class ContactsFragment extends MainFragment implements SensorEventListene
 
     private Handler taskHandler = new Handler(){
         public void dispatchMessage(android.os.Message msg){
-            Intent intent = null;
-            switch(msg.what) {
-                case RIGHT_TIMER:
-                    Log.d("RIGHT", "RIGHT");
-                    //Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + "90510"));
-                    startActivity(intent);
-                    break;
-                case BOTTOM_TIMER:
-                    Log.d("BOTTOM", "BOTTOM");
-                    //Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + "90510"));
-                    startActivity(intent);
-                    break;
-                case LEFT_TIMER:
-                    Log.d("LEFT", "LEFT");
-                    //Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + "90510"));
-                    startActivity(intent);
-                    startActivity(intent);
-                    break;
-                case TOP_TIMER:
-                    Log.d("TOP", "TOP");
-                    //Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + "90510"));
-                    startActivity(intent);
-                    startActivity(intent);
+            if(isAdded()) {
+                Intent intent = null;
+                switch (msg.what) {
+                    case RIGHT_TIMER:
+                        Log.d("RIGHT", "RIGHT");
+                        //Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" + "90510"));
+                        startActivity(intent);
+                        break;
+                    case BOTTOM_TIMER:
+                        Log.d("BOTTOM", "BOTTOM");
+                        //Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" + "90510"));
+                        startActivity(intent);
+                        break;
+                    case LEFT_TIMER:
+                        Log.d("LEFT", "LEFT");
+                        //Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" + "90510"));
+                        startActivity(intent);
+                        startActivity(intent);
+                        break;
+                    case TOP_TIMER:
+                        Log.d("TOP", "TOP");
+                        //Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" + "90510"));
+                        startActivity(intent);
+                        startActivity(intent);
 
                     /*
                     Log.d("RIGHT", "RIGHT");
@@ -309,9 +310,10 @@ public class ContactsFragment extends MainFragment implements SensorEventListene
                     */
 
 
-                    break;
+                        break;
+                }
+                vibrate();
             }
-            vibrate();
         };
     };
 
