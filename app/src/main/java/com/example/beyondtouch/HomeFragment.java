@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     private SensorManager sensorManager;
     private Point p;
     private Sensor accelSensor;
-    private TextView coords, XTextView;
+    //private TextView coords, XTextView;
     private int screenHeight, screenWidth;
     private FrameLayout FLleft, FLright, FLtop, FLbottom;
     private static int RIGHT_MARGIN, LEFT_MARGIN, TOP_MARGIN, BOTTOM_MARGIN;
@@ -114,8 +114,8 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        coords = (TextView) v.findViewById(R.id.coordinates);
-        XTextView = (TextView) v.findViewById(R.id.textView2);
+        //coords = (TextView) v.findViewById(R.id.coordinates);
+        //XTextView = (TextView) v.findViewById(R.id.textView2);
 
         FLleft =(FrameLayout) v.findViewById(R.id.frameLayoutLeft);
         FLright =(FrameLayout) v.findViewById(R.id.frameLayoutRight);
@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     public void updatePointer(SensorEvent event){
         float axisX = event.values[0];
         float axisY = event.values[1];
-        coords.setText("X:" + axisX + "\n p.x : " + p.x + "\n Y: " + axisY + "\n p.y " + p.y);
+        //coords.setText("X:" + axisX + "\n p.x : " + p.x + "\n Y: " + axisY + "\n p.y " + p.y);
 
         if(axisX > 4) {
             leftFlag = true;
@@ -165,11 +165,11 @@ public class HomeFragment extends Fragment implements SensorEventListener {
             leftFlag = false;
             rightFlag = false;
         }
-        if(axisY > 3 ) {
+        if(axisY > 8 ) {
             bottomFlag = true;
             leftFlag = false;
             rightFlag = false;
-        } else if(axisY < -2) {
+        } else if(axisY < 0) {
             topFlag = true;
             rightFlag = false;
             leftFlag = false;
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         }
 
         if(leftFlag) {
-            XTextView.setText("LEFT");
+            //XTextView.setText("LEFT");
             if(!ott.isAlreadyActive(LEFT_TIMER)) {
                 timer.cancel();
                 timer = new Timer();
@@ -190,7 +190,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
             FLleft.setAlpha(0.3f);
         }
         if(rightFlag) {
-            XTextView.setText("RIGHT");
+            //XTextView.setText("RIGHT");
 
             if(!ott.isAlreadyActive(RIGHT_TIMER)) {
                 timer.cancel();
@@ -202,7 +202,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
             FLright.setAlpha(0.3f);
         }
         if(topFlag) {
-            XTextView.setText("TOP");
+            //XTextView.setText("TOP");
             if(!ott.isAlreadyActive(TOP_TIMER)) {
                 timer.cancel();
                 timer = new Timer();
@@ -213,7 +213,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
             FLtop.setAlpha(0.3f);
         }
         if(bottomFlag) {
-            XTextView.setText("BOTTOM");
+            //XTextView.setText("BOTTOM");
 
             if(!ott.isAlreadyActive(BOTTOM_TIMER)) {
                 timer.cancel();
@@ -226,7 +226,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         }
         if(!topFlag && !bottomFlag && !rightFlag && !leftFlag){
             timer.cancel();
-            XTextView.setText("MIDDLE");
+            //XTextView.setText("MIDDLE");
             ott = new OurTimerTask(-1, taskHandler);
         }
 
