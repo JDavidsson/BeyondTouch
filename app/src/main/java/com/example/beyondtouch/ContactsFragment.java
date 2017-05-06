@@ -167,11 +167,11 @@ public class ContactsFragment extends MainFragment implements SensorEventListene
             leftFlag = false;
             rightFlag = false;
         }
-        if(axisY > 3 ) {
+        if(axisY > 8 ) {
             bottomFlag = true;
             leftFlag = false;
             rightFlag = false;
-        } else if(axisY < -2) {
+        } else if(axisY < 0) {
             topFlag = true;
             rightFlag = false;
             leftFlag = false;
