@@ -5,6 +5,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.hardware.SensorEventListener;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +28,6 @@ public class CustomFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        leftId = View.generateViewId();
-        rightId = View.generateViewId();
-        topId = View.generateViewId();
-        bottomId = View.generateViewId();
-
     }
 
     @Override
@@ -42,6 +38,18 @@ public class CustomFragment extends Fragment {
         rightFL = new FrameLayout(getActivity());
         topFL = new FrameLayout(getActivity());
         bottomFL = new FrameLayout(getActivity());
+        leftFL.setId(leftId);
+        rightFL.setId(rightId);
+        topFL.setId(topId);
+        bottomFL.setId(bottomId);
+        leftId = View.generateViewId();
+        rightId = View.generateViewId();
+        topId = View.generateViewId();
+        bottomId = View.generateViewId();
+        LayoutInflater.from(getActivity()).inflate(leftId, null);
+        LayoutInflater.from(getActivity()).inflate(rightId, null);
+        LayoutInflater.from(getActivity()).inflate(topId, null);
+        LayoutInflater.from(getActivity()).inflate(bottomId, null);
         //createView(BOTTOM, "5555");
         //createView(LEFT, "5555");
         //createView(TOP, "5555");
@@ -113,11 +121,14 @@ public class CustomFragment extends Fragment {
         return newFrameLayout;
         */
         ConstraintLayout layout = (ConstraintLayout)getActivity().findViewById(R.id.container_custom_fragment);
-        Log.e("HEJ", layout.toString());
+        //Log.e("HEJ", layout.toString());
         ConstraintSet set = new ConstraintSet();
 
         ImageView view = new ImageView(getActivity());
-        layout.addView(view, 1);
+        int tempid = View.generateViewId();
+        view.setId(tempid);
+        LayoutInflater.from(getActivity()).inflate(tempid, null);
+        layout.addView(view);
         set.clone(layout);
         view.setBackgroundColor(0xFFFFFFFF);
         set.connect(view.getId(), ConstraintSet.TOP, layout.getId(), ConstraintSet.TOP, 60);
