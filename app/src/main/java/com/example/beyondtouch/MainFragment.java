@@ -1,15 +1,14 @@
 package com.example.beyondtouch;
 
-import android.os.Vibrator;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by Christoffer on 2017-05-05.
@@ -34,12 +33,6 @@ public class MainFragment extends Fragment implements SensorEventListener {
         sensorManager.getDefaultSensor(SensorManager.SENSOR_DELAY_GAME);
         shakeCounter = 0;
     }
-
-
-
-
-
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){

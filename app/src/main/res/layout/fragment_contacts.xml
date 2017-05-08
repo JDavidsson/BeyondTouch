@@ -115,7 +115,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/tilt" />
+        app:srcCompat="@mipmap/shake" />
 
     <TextView
         android:id="@+id/luta"
