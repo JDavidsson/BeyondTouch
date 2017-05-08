@@ -20,10 +20,11 @@ public class MainFragment extends Fragment implements SensorEventListener {
     private long lastUpdate;
     private long timeOut;
     private float currX, currY, currZ, lastX, lastY, lastZ;
+    private float proximityValue;
     private final static int SHAKE_THRESHOLD = 800;
     private final static int SHAKECOUNT_LIMIT = 2;
     private int shakeCounter;
-
+    private Sensor proximitySensor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,25 @@ public class MainFragment extends Fragment implements SensorEventListener {
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.getDefaultSensor(SensorManager.SENSOR_DELAY_GAME);
+        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        sensorManager.registerListener(this, proximitySensor, SensorManager.SENSOR_DELAY_NORMAL);
         shakeCounter = 0;
     }
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        // implement proximity sensor to go back
+        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            proximityValue = event.values[0];
+            if (proximityValue == 0) {
+                Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                // Vibrate for 150 milliseconds
+                v.vibrate(150);
+                moveUpOneLevel();
+            }
+            System.out.println("PROX VALUE = " + proximityValue);
+        }
+
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             long curTime = System.currentTimeMillis();
             // only allow one update every 100ms.
@@ -73,6 +89,9 @@ public class MainFragment extends Fragment implements SensorEventListener {
                 lastZ = currZ;
             }
         }
+
+
+
     }
 
 
