@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     private Sensor accelSensor;
     //private TextView coords, XTextView;
     private int screenHeight, screenWidth;
-    private ImageView FLleft, FLright, FLtop, FLbottom;
+    private View FLleft, FLright, FLtop, FLbottom;
     private static int RIGHT_MARGIN, LEFT_MARGIN, TOP_MARGIN, BOTTOM_MARGIN;
     private boolean leftFlag, rightFlag, topFlag, bottomFlag;
     public final static int RIGHT_TIMER = 0, TOP_TIMER = 1, LEFT_TIMER = 2, BOTTOM_TIMER = 3;
@@ -113,15 +113,22 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        /*
         v = inflater.inflate(R.layout.circle_layout, container, false);
-
-        //coords = (TextView) v.findViewById(R.id.coordinates);
-        //XTextView = (TextView) v.findViewById(R.id.textView2);
-
         FLleft =(ImageView) v.findViewById(R.id.frameLayoutLeft);
         FLright =(ImageView) v.findViewById(R.id.frameLayoutRight);
         FLtop =(ImageView) v.findViewById(R.id.frameLayoutTop);
         FLbottom=(ImageView) v.findViewById(R.id.frameLayoutBottom);
+*/
+        v = inflater.inflate(R.layout.fragment_home, container, false);
+        FLleft =(FrameLayout) v.findViewById(R.id.frameLayoutLeft);
+        FLright =(FrameLayout) v.findViewById(R.id.frameLayoutRight);
+        FLtop =(FrameLayout) v.findViewById(R.id.frameLayoutTop);
+        FLbottom=(FrameLayout) v.findViewById(R.id.frameLayoutBottom);
+        //coords = (TextView) v.findViewById(R.id.coordinates);
+        //XTextView = (TextView) v.findViewById(R.id.textView2);
+
+
 
         getActivity().setTitle(getContext().getString(R.string.title_home));
 
