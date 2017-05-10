@@ -21,7 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.ImageView;
+
 import java.util.Timer;
 
 /**
@@ -67,7 +68,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     private Sensor accelSensor;
     //private TextView coords, XTextView;
     private int screenHeight, screenWidth;
-    private FrameLayout FLleft, FLright, FLtop, FLbottom;
+    private ImageView FLleft, FLright, FLtop, FLbottom;
     private static int RIGHT_MARGIN, LEFT_MARGIN, TOP_MARGIN, BOTTOM_MARGIN;
     private boolean leftFlag, rightFlag, topFlag, bottomFlag;
     public final static int RIGHT_TIMER = 0, TOP_TIMER = 1, LEFT_TIMER = 2, BOTTOM_TIMER = 3;
@@ -112,18 +113,17 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_home, container, false);
+        v = inflater.inflate(R.layout.circle_layout, container, false);
 
         //coords = (TextView) v.findViewById(R.id.coordinates);
         //XTextView = (TextView) v.findViewById(R.id.textView2);
 
-        FLleft =(FrameLayout) v.findViewById(R.id.frameLayoutLeft);
-        FLright =(FrameLayout) v.findViewById(R.id.frameLayoutRight);
-        FLtop =(FrameLayout) v.findViewById(R.id.frameLayoutTop);
-        FLbottom=(FrameLayout) v.findViewById(R.id.frameLayoutBottom);
+        FLleft =(ImageView) v.findViewById(R.id.frameLayoutLeft);
+        FLright =(ImageView) v.findViewById(R.id.frameLayoutRight);
+        FLtop =(ImageView) v.findViewById(R.id.frameLayoutTop);
+        FLbottom=(ImageView) v.findViewById(R.id.frameLayoutBottom);
 
         getActivity().setTitle(getContext().getString(R.string.title_home));
-
 
         return v;
     }
@@ -147,6 +147,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
             updatePointer(event);
         }
     }
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {

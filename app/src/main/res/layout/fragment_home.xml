@@ -47,11 +47,11 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/frameLayoutTop"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:background="@android:color/holo_purple"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/frameLayoutTop"
         app:layout_constraintLeft_toRightOf="@+id/frameLayoutLeft"
         app:layout_constraintRight_toLeftOf="@+id/frameLayoutRight">
 

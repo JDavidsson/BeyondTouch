@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.beyondtouch" >
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    package="com.example.beyondtouch">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -10,16 +11,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <action android:name="android.media.action.STILL_IMAGE_CAMERA" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeFragment_Circle2"></activity>
     </application>
 
 </manifest>
