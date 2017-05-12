@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,7 +74,11 @@ public class ContactsFragment extends MainFragment implements SensorEventListene
     private OurTimerTask ott;
     private int time = 750;
     private View v;
+    private MediaPlayer mp1;
 
+    private void playOneLevelUp(){
+        mp1.start();
+    }
     public ContactsFragment() {
         // Required empty public constructor
     }
@@ -101,6 +106,8 @@ public class ContactsFragment extends MainFragment implements SensorEventListene
         LEFT_MARGIN = 70;
         TOP_MARGIN = screenHeight - 70;
         BOTTOM_MARGIN = 70;
+
+        mp1 = MediaPlayer.create(getActivity(),R.raw.down);
 
         timer = new Timer();
         ott = new OurTimerTask(-1,taskHandler);

@@ -1,12 +1,15 @@
 package com.example.beyondtouch;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,48 +28,12 @@ import android.widget.ImageView;
 
 import java.util.Timer;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment implements SensorEventListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     private SensorManager sensorManager;
     private Point p;
     private Sensor accelSensor;
-    //private TextView coords, XTextView;
     private int screenHeight, screenWidth;
     private View FLleft, FLright, FLtop, FLbottom;
     private static int RIGHT_MARGIN, LEFT_MARGIN, TOP_MARGIN, BOTTOM_MARGIN;
@@ -74,20 +41,24 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     public final static int RIGHT_TIMER = 0, TOP_TIMER = 1, LEFT_TIMER = 2, BOTTOM_TIMER = 3;
     private Timer timer;
     private OurTimerTask ott;
-    private int time = 750;
+    public static final int time = 750; // time elapsed before app opens
+    public final static float defaultAlpha = 0.3f; // alpha value when not tilted
+    public final static float startAlpha = 0.5f; // alpha value when a tilt is initialized
     private View v;
+    private ValueAnimator animationTop;
+    private ValueAnimator animationRight;
+    private ValueAnimator animationBottom;
+    private ValueAnimator animationLeft;
+    private MediaPlayer mp1;
+    private MediaPlayer mp2;
+
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -107,30 +78,51 @@ public class HomeFragment extends Fragment implements SensorEventListener {
 
         timer = new Timer();
         ott = new OurTimerTask(-1,taskHandler);
+
+        mp1 = MediaPlayer.create(getActivity(),R.raw.down);
+        mp2 = MediaPlayer.create(getActivity(),R.raw.up);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        /*
-        v = inflater.inflate(R.layout.circle_layout, container, false);
-        FLleft =(ImageView) v.findViewById(R.id.frameLayoutLeft);
-        FLright =(ImageView) v.findViewById(R.id.frameLayoutRight);
-        FLtop =(ImageView) v.findViewById(R.id.frameLayoutTop);
-        FLbottom=(ImageView) v.findViewById(R.id.frameLayoutBottom);
-*/
         v = inflater.inflate(R.layout.fragment_home, container, false);
         FLleft =(FrameLayout) v.findViewById(R.id.frameLayoutLeft);
         FLright =(FrameLayout) v.findViewById(R.id.frameLayoutRight);
         FLtop =(FrameLayout) v.findViewById(R.id.frameLayoutTop);
         FLbottom=(FrameLayout) v.findViewById(R.id.frameLayoutBottom);
-        //coords = (TextView) v.findViewById(R.id.coordinates);
-        //XTextView = (TextView) v.findViewById(R.id.textView2);
-
-
-
         getActivity().setTitle(getContext().getString(R.string.title_home));
+
+        /* ---- ANIMATIONS ---- */
+        animationTop = ValueAnimator.ofFloat(startAlpha,1f);
+        animationTop.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator updatedAnimation) {
+                FLtop.setAlpha((float) updatedAnimation.getAnimatedValue());
+            }
+        });
+        animationRight = ValueAnimator.ofFloat(startAlpha,1f);
+        animationRight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator updatedAnimation) {
+                FLright.setAlpha((float) updatedAnimation.getAnimatedValue());
+            }
+        });
+        animationLeft = ValueAnimator.ofFloat(startAlpha,1f);
+        animationLeft.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator updatedAnimation) {
+                FLleft.setAlpha((float) updatedAnimation.getAnimatedValue());
+            }
+        });
+        animationBottom = ValueAnimator.ofFloat(startAlpha,1f);
+        animationBottom.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator updatedAnimation) {
+                FLbottom.setAlpha((float) updatedAnimation.getAnimatedValue());
+            }
+        });
 
         return v;
     }
@@ -155,9 +147,29 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         }
     }
 
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
+    }
+
+    // start color animation
+    private void startAnimation(ValueAnimator animation){
+        if(!animation.isStarted()) {
+            animation.setDuration(time);
+            animation.start();
+        }
+    }
+    // stops coloranimation
+    private void stopAnimation(ValueAnimator animation){
+        animation.cancel();
+    }
+
+
+
+    private void playOneLevelDown(){
+        mp1.start();
+    }
+    private void playOneLevelUp(){
+        mp2.start();
     }
 
     public void updatePointer(SensorEvent event){
@@ -193,9 +205,11 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(LEFT_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }FLleft.setAlpha(1f);
+            }FLleft.setAlpha(startAlpha);
+            startAnimation(animationLeft);
         } else  {
-            FLleft.setAlpha(0.3f);
+            stopAnimation(animationLeft);
+            FLleft.setAlpha(defaultAlpha);
         }
         if(rightFlag) {
             //XTextView.setText("RIGHT");
@@ -205,9 +219,12 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(RIGHT_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }FLright.setAlpha(1f);
+            }
+            FLright.setAlpha(startAlpha);
+            startAnimation(animationRight);
         } else  {
-            FLright.setAlpha(0.3f);
+            stopAnimation(animationRight);
+            FLright.setAlpha(defaultAlpha);
         }
         if(topFlag) {
             //XTextView.setText("TOP");
@@ -216,9 +233,11 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(TOP_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }FLtop.setAlpha(1f);
+            }FLtop.setAlpha(startAlpha);
+            startAnimation(animationTop);
         } else  {
-            FLtop.setAlpha(0.3f);
+            stopAnimation(animationTop);
+            FLtop.setAlpha(defaultAlpha);
         }
         if(bottomFlag) {
             //XTextView.setText("BOTTOM");
@@ -228,9 +247,11 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 timer = new Timer();
                 ott = new OurTimerTask(BOTTOM_TIMER, taskHandler);
                 timer.schedule(ott, time);
-            }FLbottom.setAlpha(1f);
+            }FLbottom.setAlpha(startAlpha);
+            startAnimation(animationBottom);
         } else  {
-            FLbottom.setAlpha(0.3f);
+            stopAnimation(animationBottom);
+            FLbottom.setAlpha(defaultAlpha);
         }
         if(!topFlag && !bottomFlag && !rightFlag && !leftFlag){
             timer.cancel();
@@ -284,6 +305,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                     if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivity(intent);
                     }
+
                     break;
                 case BOTTOM_TIMER:
                     Log.d("BOTTOM", "BOTTOM");
@@ -298,6 +320,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 case LEFT_TIMER:
                     Log.d("LEFT", "LEFT");
 
+                    playOneLevelDown();
                     //Starts a new fragment (like this one)
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container, new ContactsFragment());
