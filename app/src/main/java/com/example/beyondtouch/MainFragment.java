@@ -97,8 +97,8 @@ public class MainFragment extends Fragment implements SensorEventListener {
 
 
     public void moveUpOneLevel(){
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-        getActivity().getSupportFragmentManager().popBackStack();
+        //getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        //getActivity().getSupportFragmentManager().popBackStack();
     }
 
     private void shakePhone(){

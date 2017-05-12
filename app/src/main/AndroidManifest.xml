@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeFragment_Circle2"></activity>
+        <service android:name=".ProximityListener"/>
     </application>
 
 </manifest>
