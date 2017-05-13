@@ -89,13 +89,9 @@ public class MainFragment extends Fragment implements SensorEventListener {
                 lastZ = currZ;
             }
         }
-
-
-
     }
 
-
-
+    // currently being replaced by proximity functionalities in MainActivity and ProximityListener
     public void moveUpOneLevel(){
         //getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
         //getActivity().getSupportFragmentManager().popBackStack();

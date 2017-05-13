@@ -1,7 +1,6 @@
 package com.example.beyondtouch;
 
 
-import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.hardware.Sensor;
