@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -86,7 +87,9 @@ public class BaseFragment extends Fragment implements SensorEventListener {
         ott = new OurTimerTask(-1,taskHandler);
 
         mp1 = MediaPlayer.create(getActivity(),R.raw.down);
+        mp1.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mp2 = MediaPlayer.create(getActivity(),R.raw.up);
+        mp2.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
     }
 
@@ -137,9 +140,7 @@ public class BaseFragment extends Fragment implements SensorEventListener {
     protected void playOneLevelDown(){
         mp1.start();
     }
-    protected void playOneLevelUp(){
-        mp2.start();
-    }
+    protected void playOneLevelUp(){ mp2.start(); }
 
     @Override
     public void onResume() {
