@@ -13,11 +13,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import java.util.Timer;
 
@@ -95,11 +98,17 @@ public class BaseFragment extends Fragment implements SensorEventListener {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-
-        FLleft =(FrameLayout) v.findViewById(R.id.frameLayoutLeft);
-        FLright =(FrameLayout) v.findViewById(R.id.frameLayoutRight);
-        FLtop =(FrameLayout) v.findViewById(R.id.frameLayoutTop);
-        FLbottom=(FrameLayout) v.findViewById(R.id.frameLayoutBottom);
+        if (v.findViewById(R.id.frameLayoutLeft) instanceof ImageView){
+            FLleft = (ImageView) v.findViewById(R.id.frameLayoutLeft);
+            FLright = (ImageView) v.findViewById(R.id.frameLayoutRight);
+            FLtop = (ImageView) v.findViewById(R.id.frameLayoutTop);
+            FLbottom = (ImageView) v.findViewById(R.id.frameLayoutBottom);
+        } else {
+            FLleft = (FrameLayout) v.findViewById(R.id.frameLayoutLeft);
+            FLright = (FrameLayout) v.findViewById(R.id.frameLayoutRight);
+            FLtop = (FrameLayout) v.findViewById(R.id.frameLayoutTop);
+            FLbottom = (FrameLayout) v.findViewById(R.id.frameLayoutBottom);
+        }
 
         /* ---- ANIMATIONS ---- */
         animationTop = ValueAnimator.ofFloat(startAlpha,1f);
