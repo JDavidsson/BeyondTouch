@@ -100,17 +100,18 @@ public class BaseFragment extends Fragment implements SensorEventListener {
 
         // Inflate the layout for this fragment
 
-        /*FLleft =(FrameLayout) v.findViewById(R.id.frameLayoutLeft);
-        FLright =(FrameLayout) v.findViewById(R.id.frameLayoutRight);
-        FLtop =(FrameLayout) v.findViewById(R.id.frameLayoutTop);
-        FLbottom=(FrameLayout) v.findViewById(R.id.frameLayoutBottom);*/
-
-        //Inflate cirlce layout
-        FLleft =(ImageView) v.findViewById(R.id.frameLayoutLeft);
-        FLright =(ImageView) v.findViewById(R.id.frameLayoutRight);
-        FLtop =(ImageView) v.findViewById(R.id.frameLayoutTop);
-        FLbottom=(ImageView) v.findViewById(R.id.frameLayoutBottom);
-
+        if(v.findViewById(R.id.frameLayoutLeft) instanceof FrameLayout) {
+            FLleft = (FrameLayout) v.findViewById(R.id.frameLayoutLeft);
+            FLright = (FrameLayout) v.findViewById(R.id.frameLayoutRight);
+            FLtop = (FrameLayout) v.findViewById(R.id.frameLayoutTop);
+            FLbottom = (FrameLayout) v.findViewById(R.id.frameLayoutBottom);
+        } else {
+            //Inflate cirlce layout
+            FLleft = (ImageView) v.findViewById(R.id.frameLayoutLeft);
+            FLright = (ImageView) v.findViewById(R.id.frameLayoutRight);
+            FLtop = (ImageView) v.findViewById(R.id.frameLayoutTop);
+            FLbottom = (ImageView) v.findViewById(R.id.frameLayoutBottom);
+        }
         /* ---- ANIMATIONS ---- */
         animationTop = ValueAnimator.ofFloat(startAlpha,1f);
         animationTop.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
