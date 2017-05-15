@@ -72,7 +72,9 @@ public class HomeFragment extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //v = inflater.inflate(R.layout.fragment_home, container, false);
+        v = inflater.inflate(R.layout.circle_layout, container, false);
         getActivity().setTitle(getContext().getString(R.string.title_home));
         super.onCreateView(inflater,container,savedInstanceState);
         return v;
