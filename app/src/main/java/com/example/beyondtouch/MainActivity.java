@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment ff = new HomeFragment();
         //ff = new CustomFragment();
 
-        BroadcastReceiver receiver = new BroadcastReceiver() {
+         receiver = new BroadcastReceiver() {
 
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -63,28 +64,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onStop()
-    {
-        try{
-           this.unregisterReceiver(receiver);
-           receiver = null;
-        }catch(IllegalArgumentException e) {
-            System.err.println(e.getStackTrace() + ": Unable to stop activity. Receiver not registered: null");
-        }
-        super.onStop();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        try{
-            this.unregisterReceiver(receiver);
-            receiver = null;
-        }catch(IllegalArgumentException e) {
-            System.err.println(e.getStackTrace() + ": Unable to stop activity. Receiver not registered: null");
-        }
-    }
 
     @Override
     public void onResume() {
