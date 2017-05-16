@@ -4,12 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.AlarmClock;
+import android.provider.CalendarContract;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Calendar;
 
 public class HomeFragment extends BaseFragment{
 
@@ -46,9 +51,13 @@ public class HomeFragment extends BaseFragment{
                         Log.d("LEFT", "LEFT");
 
                         playOneLevelDown();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("Level", ContactsFragment.SUBLEVEL_CONTACTS);
                         //Starts a new fragment (like this one)
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ft.replace(R.id.container, new ContactsFragment());
+                        ContactsFragment fragment = new ContactsFragment();
+                        fragment.setArguments(bundle);
+                        ft.replace(R.id.container, fragment);
                         ft.addToBackStack(null);
                         ft.commit();
 
@@ -57,10 +66,21 @@ public class HomeFragment extends BaseFragment{
                     case TOP_TIMER:
                         Log.d("TOP", "TOP");
                         //aca.vibrate();
-                        Intent intent4 = new Intent(AlarmClock.ACTION_SHOW_ALARMS);
+                        /*
+                        Calendar c = Calendar.getInstance();
+                        Intent intent4 = new Intent(Intent.ACTION_INSERT)
+                                .setData(CalendarContract.Events.CONTENT_URI)
+                                .putExtra(CalendarContract.Events.TITLE, "Tvättid")
+                                .putExtra(CalendarContract.Events.EVENT_LOCATION, "Tvättstugan")
+                                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, System.currentTimeMillis())
+                                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, (System.currentTimeMillis() + 1000*60*60));
                         if (intent4.resolveActivity(getActivity().getPackageManager()) != null) {
                             startActivity(intent4);
                         }
+                        */
+                        ConstraintLayout cl = (ConstraintLayout)v.findViewById(R.id.information_holder);
+                        cl.setVisibility(View.VISIBLE);
+                        onPause();
                         break;
                 }
                 vibrate();
@@ -74,7 +94,7 @@ public class HomeFragment extends BaseFragment{
         // Inflate the layout for this fragment
 
         //v = inflater.inflate(R.layout.fragment_home, container, false);
-        v = inflater.inflate(R.layout.circle_layout, container, false);
+        v = inflater.inflate(R.layout.circle_layout_home, container, false);
         getActivity().setTitle(getContext().getString(R.string.title_home));
         super.onCreateView(inflater,container,savedInstanceState);
         return v;
