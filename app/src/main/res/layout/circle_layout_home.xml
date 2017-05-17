@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="180"
-                app:srcCompat="@drawable/circle2_nostroke" />
+                app:srcCompat="@drawable/circle3" />
 
 
             <com.example.beyondtouch.SquareImageView

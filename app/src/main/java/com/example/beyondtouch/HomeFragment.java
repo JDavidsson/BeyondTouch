@@ -26,6 +26,8 @@ public class HomeFragment extends BaseFragment{
         super.onCreate(savedInstanceState);
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
+
+                Bundle bundle = new Bundle();
                 switch(msg.what) {
                     case RIGHT_TIMER:
                         //aca.vibrate();
@@ -40,26 +42,36 @@ public class HomeFragment extends BaseFragment{
                     case BOTTOM_TIMER:
                         Log.d("BOTTOM", "BOTTOM");
                         //aca.vibrate();
+                        /*
                         Intent intent2 = new Intent(AlarmClock.ACTION_SET_ALARM);
                         if (intent2.resolveActivity(getActivity().getPackageManager()) != null) {
                             intent2.putExtra(AlarmClock.EXTRA_HOUR, 8);
                             intent2.putExtra(AlarmClock.EXTRA_MINUTES, 10);
                             startActivity(intent2);
                         }
+                        */
+                        playOneLevelDown();
+                        bundle.putInt("Level", ContactsFragment.SUBLEVEL_TIMES);
+                        //Starts a new fragment (like this one)
+                        FragmentTransaction ftBottom = getFragmentManager().beginTransaction();
+                        ContactsFragment fragmentBottom = new ContactsFragment();
+                        fragmentBottom.setArguments(bundle);
+                        ftBottom.replace(R.id.container, fragmentBottom);
+                        ftBottom.addToBackStack(null);
+                        ftBottom.commit();
                         break;
                     case LEFT_TIMER:
                         Log.d("LEFT", "LEFT");
 
                         playOneLevelDown();
-                        Bundle bundle = new Bundle();
                         bundle.putInt("Level", ContactsFragment.SUBLEVEL_CONTACTS);
                         //Starts a new fragment (like this one)
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        ContactsFragment fragment = new ContactsFragment();
-                        fragment.setArguments(bundle);
-                        ft.replace(R.id.container, fragment);
-                        ft.addToBackStack(null);
-                        ft.commit();
+                        FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
+                        ContactsFragment fragmentLeft = new ContactsFragment();
+                        fragmentLeft.setArguments(bundle);
+                        ftLeft.replace(R.id.container, fragmentLeft);
+                        ftLeft.addToBackStack(null);
+                        ftLeft.commit();
 
                         //aca.vibrate();
                         break;

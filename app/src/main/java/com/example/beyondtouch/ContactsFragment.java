@@ -5,6 +5,7 @@ import android.hardware.SensorEvent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.AlarmClock;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +16,15 @@ import android.widget.TextView;
 
 public class ContactsFragment extends BaseFragment {
 
-    public final static int SUBLEVEL_MAT = 1, SUBLEVEL_FAMILJ = 2, SUBLEVEL_CONTACTS = 3;
-    public final static int ACTION_NEWSUBLEVEL = 4, ACTION_CALL = 5;
+    public final static int SUBLEVEL_MAT = 1, SUBLEVEL_FAMILJ = 2, SUBLEVEL_CONTACTS = 3, SUBLEVEL_TIMES = 4, SUBLEVEL_ALARM = 5, SUBLEVEL_TIMER = 6;
+    public final static int ACTION_NEWSUBLEVEL = 14, ACTION_CALL = 15, ACTION_ALARM = 16, ACTION_TIMER = 17;
+    public final static int BLANK = 0;
+
+    public final static int CIRCLE_CONTACTS = R.drawable.circle4_nostroke, CIRCLE_MAT = R.drawable.circle5_nostroke, CIRCLE_FAMILJ = R.drawable.circle6_nostroke,
+            CIRCLE_ALARM = R.drawable.circle7_nostroke, CIRCLE_TIMER = R.drawable.circle8_nostroke;
+    public final static int CIRCLE_CONTACTS_SUBLEVEL = R.drawable.circle4, CIRCLE_MAT_SUBLEVEL = R.drawable.circle5, CIRCLE_FAMILJ_SUBLEVEL = R.drawable.circle6,
+            CIRCLE_ALARM_SUBLEVEL = R.drawable.circle7, CIRCLE_TIMER_SUBLEVEL = R.drawable.circle8;
     private Bundle bundle;
-    private ImageView mainCircle;
 
     public ContactsFragment() {
         // Required empty public constructor
@@ -40,7 +46,7 @@ public class ContactsFragment extends BaseFragment {
                 bundle.putInt("LEFT_info", SUBLEVEL_FAMILJ);
                 bundle.putString("TOP_info", "555-343153");
                 bundle.putString("BOTTOM_info", "555-341134");
-                bundle.putInt("circleSrc", R.drawable.circle4_nostroke);
+                bundle.putInt("circleSrc", CIRCLE_CONTACTS);
             }
             break;
             case SUBLEVEL_MAT: {
@@ -57,7 +63,7 @@ public class ContactsFragment extends BaseFragment {
                 bundle.putString("LEFT_info", "555-353431");
                 bundle.putString("TOP_info", "555-343153");
                 bundle.putString("BOTTOM_info", "555-341134");
-                bundle.putInt("circleSrc", R.drawable.circle5_nostroke);
+                bundle.putInt("circleSrc", CIRCLE_MAT);
             }
             break;
             case SUBLEVEL_FAMILJ: {
@@ -74,7 +80,58 @@ public class ContactsFragment extends BaseFragment {
                 bundle.putString("LEFT_info", "555-353431");
                 bundle.putString("TOP_info", "555-343153");
                 bundle.putString("BOTTOM_info", "555-341134");
-                bundle.putInt("circleSrc", R.drawable.circle6_nostroke);
+                bundle.putInt("circleSrc", CIRCLE_FAMILJ);
+            }
+            break;
+            case SUBLEVEL_TIMES : {
+                bundle.putInt("Level", SUBLEVEL_TIMES);
+                bundle.putString("RIGHT_name", verticalText("Alarm"));
+                bundle.putString("LEFT_name", verticalText("Timer"));
+                bundle.putString("TOP_name", "");
+                bundle.putString("BOTTOM_name", "");
+                bundle.putInt("RIGHT_action", ACTION_NEWSUBLEVEL);
+                bundle.putInt("LEFT_action", ACTION_NEWSUBLEVEL);
+                bundle.putInt("TOP_action", BLANK);
+                bundle.putInt("BOTTOM_action", BLANK);
+                bundle.putInt("RIGHT_info", SUBLEVEL_ALARM);
+                bundle.putInt("LEFT_info", SUBLEVEL_TIMER);
+                bundle.putString("TOP_info", "");
+                bundle.putString("BOTTOM_info", "");
+                bundle.putInt("circleSrc", R.drawable.circle3_nostroke);
+            }
+            break;
+            case SUBLEVEL_TIMER : {
+                bundle.putInt("Level", SUBLEVEL_TIMER);
+                bundle.putString("RIGHT_name", "30");
+                bundle.putString("LEFT_name", "10");
+                bundle.putString("TOP_name", "15");
+                bundle.putString("BOTTOM_name", "5");
+                bundle.putInt("RIGHT_action", ACTION_TIMER);
+                bundle.putInt("LEFT_action", ACTION_TIMER);
+                bundle.putInt("TOP_action", ACTION_TIMER);
+                bundle.putInt("BOTTOM_action", ACTION_TIMER);
+                bundle.putInt("RIGHT_info", 30);
+                bundle.putInt("LEFT_info", 10);
+                bundle.putInt("TOP_info", 15);
+                bundle.putInt("BOTTOM_info", 5);
+                bundle.putInt("circleSrc", CIRCLE_TIMER);
+            }
+            break;
+            case SUBLEVEL_ALARM : {
+                bundle.putInt("Level", SUBLEVEL_ALARM);
+                bundle.putString("RIGHT_name", "8:10");
+                bundle.putString("LEFT_name", "9:20");
+                bundle.putString("TOP_name", "10:15");
+                bundle.putString("BOTTOM_name", "11:00");
+                bundle.putInt("RIGHT_action", ACTION_ALARM);
+                bundle.putInt("LEFT_action", ACTION_ALARM);
+                bundle.putInt("TOP_action", ACTION_ALARM);
+                bundle.putInt("BOTTOM_action", ACTION_ALARM);
+                bundle.putString("RIGHT_info", "8 10");
+                bundle.putString("LEFT_info", "9 20");
+                bundle.putString("TOP_info", "10 15");
+                bundle.putString("BOTTOM_info", "11 00");
+                bundle.putInt("circleSrc", CIRCLE_ALARM);
             }
             break;
             default : {
@@ -99,11 +156,30 @@ public class ContactsFragment extends BaseFragment {
             Log.e("CircleSrc", bundle.getInt("circleSrc") + "");
             if(bundle.getInt("RIGHT_action") == ACTION_NEWSUBLEVEL){
                 //Sublevel mat
-                ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(R.drawable.circle5);
+                int sublevel = bundle.getInt("RIGHT_info");
+                if(sublevel == SUBLEVEL_ALARM){
+                    ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(CIRCLE_ALARM_SUBLEVEL);
+                } else if (sublevel == SUBLEVEL_MAT){
+                    ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(CIRCLE_MAT_SUBLEVEL);
+                }
             }
             if(bundle.getInt("LEFT_action") == ACTION_NEWSUBLEVEL){
                 //Sublevel familj
-                ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(R.drawable.circle6);
+                int sublevel = bundle.getInt("LEFT_info");
+                switch(sublevel){
+                    case SUBLEVEL_FAMILJ :
+                        ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(CIRCLE_FAMILJ_SUBLEVEL);
+                        break;
+                    case SUBLEVEL_TIMER :
+                        ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(CIRCLE_TIMER_SUBLEVEL);
+                        break;
+                }
+            }
+            if(bundle.getInt("TOP_action") == BLANK) {
+                ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(BLANK);
+            }
+            if(bundle.getInt("BOTTOM_action") == BLANK) {
+                ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(BLANK);
             }
         } else {
             Log.e("Bundle", "No bundle");
@@ -128,68 +204,75 @@ public class ContactsFragment extends BaseFragment {
         if(bundle != null){
             level = bundle.getInt("Level");
         }
-        if(level == SUBLEVEL_CONTACTS){
-            Log.e("Level", "Contacts");
-        } else if(level == SUBLEVEL_MAT){
-            Log.e("Level", "Mat");
-        } else if(level == SUBLEVEL_FAMILJ) {
-            Log.e("Level", "Familj");
-        }
+
         setUpLowerLevel(level);
 
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
                 if(isAdded()) {
                     Intent intent = null;
-                    int action;
+                    int action = -1;
+                    String stringInfo = "";
+                    int integerInfo = -1;
                     switch (msg.what) {
                         case RIGHT_TIMER:
                             Log.d("RIGHT", "RIGHT");
                             //Intent intent = new Intent(Intent.ACTION_CALL);
                             action = bundle.getInt("RIGHT_action");
-                            if(action == ACTION_CALL){
-                                intent = new Intent(Intent.ACTION_DIAL);
-                                intent.setData(Uri.parse("tel:" + bundle.getString("RIGHT_info")));
-                                startActivity(intent);
-                            } else if (action == ACTION_NEWSUBLEVEL){
-                                startNewSublevel(setUpLowerLevel(bundle.getInt("RIGHT_info")));
-                            }
-                            break;
+                            stringInfo = bundle.getString("RIGHT_info");
+                            integerInfo = bundle.getInt("RIGHT_info");
+                        break;
                         case BOTTOM_TIMER:
                             Log.d("BOTTOM", "BOTTOM");
                             //Intent intent = new Intent(Intent.ACTION_CALL);
-                            action = bundle.getInt("LEFT_action");
-                            if(action == ACTION_CALL){
-                                intent = new Intent(Intent.ACTION_DIAL);
-                                intent.setData(Uri.parse("tel:" + bundle.getString("BOTTOM_info")));
-                                startActivity(intent);
-                            } else if (action == ACTION_NEWSUBLEVEL){
-                                startNewSublevel(setUpLowerLevel(bundle.getInt("BOTTOM_info")));
-                            }
-                            break;
+
+                            action = bundle.getInt("BOTTOM_action");
+                            stringInfo = bundle.getString("BOTTOM_info");
+                            integerInfo = bundle.getInt("BOTTOM_info");
+                        break;
                         case LEFT_TIMER:
                             Log.d("LEFT", "LEFT");
                             action = bundle.getInt("LEFT_action");
-                            if(action == ACTION_CALL){
-                                intent = new Intent(Intent.ACTION_DIAL);
-                                intent.setData(Uri.parse("tel:" + bundle.getString("LEFT_info")));
-                                startActivity(intent);
-                            } else if (action == ACTION_NEWSUBLEVEL){
-                                startNewSublevel(setUpLowerLevel(bundle.getInt("LEFT_info")));
-                            }
-                            break;
+                            stringInfo = bundle.getString("LEFT_info");
+                            integerInfo = bundle.getInt("LEFT_info");
+                        break;
                         case TOP_TIMER:
                             Log.d("TOP", "TOP");
-                            action = bundle.getInt("LEFT_action");
-                            if(action == ACTION_CALL){
-                                intent = new Intent(Intent.ACTION_DIAL);
-                                intent.setData(Uri.parse("tel:" + bundle.getString("TOP_info")));
-                                startActivity(intent);
-                            } else if (action == ACTION_NEWSUBLEVEL){
-                                startNewSublevel(setUpLowerLevel(bundle.getInt("TOP_info")));
-                            }
-                            break;
+                            action = bundle.getInt("TOP_action");
+                            stringInfo = bundle.getString("TOP_info");
+                            integerInfo = bundle.getInt("TOP_info");
+                        break;
                     }
+
+                    switch(action){
+                        case ACTION_CALL : {
+                            intent = new Intent(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse("tel:" + stringInfo));
+                            startActivity(intent);
+                        }
+                        break;
+                        case ACTION_TIMER : {
+                            intent = new Intent(AlarmClock.ACTION_SET_TIMER)
+                                    .putExtra(AlarmClock.EXTRA_MESSAGE, "Timer")
+                                    .putExtra(AlarmClock.EXTRA_LENGTH, integerInfo*60);
+                            startActivity(intent);
+                        }
+                        break;
+                        case ACTION_ALARM : {
+                            String[] hourAndMinutes = stringInfo.split(" ");
+                            intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                                .putExtra(AlarmClock.EXTRA_HOUR, Integer.parseInt(hourAndMinutes[0]))
+                                .putExtra(AlarmClock.EXTRA_MINUTES, Integer.parseInt(hourAndMinutes[1]));
+                            startActivity(intent);
+                        }
+                        break;
+                        case ACTION_NEWSUBLEVEL : {
+                            startNewSublevel(setUpLowerLevel(integerInfo));
+                        }
+                        break;
+                    }
+
+
                     vibrate();
                 }
             };
