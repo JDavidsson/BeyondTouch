@@ -1,5 +1,6 @@
 package com.example.beyondtouch;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.SensorEvent;
 import android.net.Uri;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class ContactsFragment extends BaseFragment {
 
@@ -150,6 +153,12 @@ public class ContactsFragment extends BaseFragment {
     private void visualSetUp(View view){
         Bundle bundle = this.getArguments();
         if(bundle != null){
+            ArrayList<ImageView> circleParts = new ArrayList<>();
+            circleParts.add((ImageView)view.findViewById(R.id.frameLayoutBottom));
+            circleParts.add((ImageView)view.findViewById(R.id.frameLayoutLeft));
+            circleParts.add((ImageView)view.findViewById(R.id.frameLayoutRight));
+            circleParts.add((ImageView)view.findViewById(R.id.frameLayoutTop));
+
             ((TextView)view.findViewById(R.id.textView_bottom)).setText(bundle.getString("BOTTOM_name"));
             ((TextView)view.findViewById(R.id.textView_left)).setText(bundle.getString("LEFT_name"));
             ((TextView)view.findViewById(R.id.textView_top)).setText(bundle.getString("TOP_name"));
@@ -159,22 +168,35 @@ public class ContactsFragment extends BaseFragment {
             ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(bundle.getInt("circleSrc"));
             ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(bundle.getInt("circleSrc"));
             Log.e("CircleSrc", bundle.getInt("circleSrc") + "");
-            if(bundle.getInt("RIGHT_action") != ACTION_NEWSUBLEVEL){
-                ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageAlpha(50);
+
+            int level = bundle.getInt("Level");
+            String color = "";
+            switch(level){
+                case SUBLEVEL_ALARM : color = "blue"; break;
+                case SUBLEVEL_CONTACTS : color = "purple"; break;
+                case SUBLEVEL_FAMILJ : color = "blue"; break;
+                case SUBLEVEL_TIMER : color = "green"; break;
+                case SUBLEVEL_MAT : color = "blue"; break;
             }
-            if(bundle.getInt("LEFT_action") != ACTION_NEWSUBLEVEL){
-                ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageAlpha(180);
+            for(int i = 0; i < circleParts.size(); i++) {
+                if(color.length() > 0) {
+                    Context context = circleParts.get(i).getContext();
+                    int id = context.getResources().getIdentifier(color + (i + 1), "drawable", getActivity().getPackageName());
+                    circleParts.get(i).setImageResource(id);
+                }else {
+                    circleParts.get(i).setImageResource(0);
+                }
             }
-            if(bundle.getInt("TOP_action") == BLANK) {
-                ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(BLANK);
-            } else {
-                ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageAlpha(255);
+            if(level == SUBLEVEL_CONTACTS || level == SUBLEVEL_TIMES){
+                ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(R.drawable.holo_blue);
+                ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(R.drawable.holo_green);
+                if(level == SUBLEVEL_TIMES){
+                    ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(0);
+                    ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(0);
+                }
             }
-            if(bundle.getInt("BOTTOM_action") == BLANK) {
-                ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(BLANK);
-            } else {
-                ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageAlpha(100);
-            }
+
+
         } else {
             Log.e("Bundle", "No bundle");
         }
