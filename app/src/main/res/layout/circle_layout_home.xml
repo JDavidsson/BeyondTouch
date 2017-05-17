@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="180"
-                app:srcCompat="@drawable/circle3" />
+                app:srcCompat="@drawable/holo_red" />
 
 
             <com.example.beyondtouch.SquareImageView
@@ -46,14 +46,14 @@
                 android:tag="LeftCircle"
                 android:layout_height="wrap_content"
                 android:rotation="270"
-                app:srcCompat="@drawable/circle4" />
+                app:srcCompat="@drawable/holo_purple" />
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="TopCircle"
-                app:srcCompat="@drawable/circle2_nostroke" />
+                app:srcCompat="@drawable/holo_green" />
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutRight"
@@ -62,7 +62,7 @@
                 android:tag="RightCircle"
                 android:cropToPadding="false"
                 android:rotation="90"
-                app:srcCompat="@drawable/circle2_nostroke" />
+                app:srcCompat="@drawable/holo_blue" />
 
 
         </FrameLayout>

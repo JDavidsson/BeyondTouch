@@ -20,10 +20,15 @@ public class ContactsFragment extends BaseFragment {
     public final static int ACTION_NEWSUBLEVEL = 14, ACTION_CALL = 15, ACTION_ALARM = 16, ACTION_TIMER = 17;
     public final static int BLANK = 0;
 
+    /*
     public final static int CIRCLE_CONTACTS = R.drawable.circle4_nostroke, CIRCLE_MAT = R.drawable.circle5_nostroke, CIRCLE_FAMILJ = R.drawable.circle6_nostroke,
             CIRCLE_ALARM = R.drawable.circle7_nostroke, CIRCLE_TIMER = R.drawable.circle8_nostroke;
     public final static int CIRCLE_CONTACTS_SUBLEVEL = R.drawable.circle4, CIRCLE_MAT_SUBLEVEL = R.drawable.circle5, CIRCLE_FAMILJ_SUBLEVEL = R.drawable.circle6,
-            CIRCLE_ALARM_SUBLEVEL = R.drawable.circle7, CIRCLE_TIMER_SUBLEVEL = R.drawable.circle8;
+            CIRCLE_ALARM_SUBLEVEL = R.drawable.circle7, CIRCLE_TIMER_SUBLEVEL = R.drawable.circle8;*/
+
+    public final static int CIRCLE_CONTACTS = R.drawable.holo_purple, CIRCLE_MAT = R.drawable.holo_blue, CIRCLE_FAMILJ = R.drawable.holo_green,
+            CIRCLE_ALARM = R.drawable.holo_blue, CIRCLE_TIMER = R.drawable.holo_green;
+
     private Bundle bundle;
 
     public ContactsFragment() {
@@ -154,27 +159,10 @@ public class ContactsFragment extends BaseFragment {
             ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(bundle.getInt("circleSrc"));
             ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(bundle.getInt("circleSrc"));
             Log.e("CircleSrc", bundle.getInt("circleSrc") + "");
-            if(bundle.getInt("RIGHT_action") == ACTION_NEWSUBLEVEL){
-                int sublevel = bundle.getInt("RIGHT_info");
-                if(sublevel == SUBLEVEL_ALARM){
-                    ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(CIRCLE_ALARM_SUBLEVEL);
-                } else if (sublevel == SUBLEVEL_MAT){
-                    ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(CIRCLE_MAT_SUBLEVEL);
-                }
-            } else {
+            if(bundle.getInt("RIGHT_action") != ACTION_NEWSUBLEVEL){
                 ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageAlpha(50);
             }
-            if(bundle.getInt("LEFT_action") == ACTION_NEWSUBLEVEL){
-                int sublevel = bundle.getInt("LEFT_info");
-                switch(sublevel){
-                    case SUBLEVEL_FAMILJ :
-                        ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(CIRCLE_FAMILJ_SUBLEVEL);
-                        break;
-                    case SUBLEVEL_TIMER :
-                        ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(CIRCLE_TIMER_SUBLEVEL);
-                        break;
-                }
-            } else {
+            if(bundle.getInt("LEFT_action") != ACTION_NEWSUBLEVEL){
                 ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageAlpha(180);
             }
             if(bundle.getInt("TOP_action") == BLANK) {
