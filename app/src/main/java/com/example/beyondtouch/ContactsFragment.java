@@ -145,6 +145,7 @@ public class ContactsFragment extends BaseFragment {
     private void visualSetUp(View view){
         Bundle bundle = this.getArguments();
         if(bundle != null){
+
             ((TextView)view.findViewById(R.id.textView_bottom)).setText(bundle.getString("BOTTOM_name"));
             ((TextView)view.findViewById(R.id.textView_left)).setText(bundle.getString("LEFT_name"));
             ((TextView)view.findViewById(R.id.textView_top)).setText(bundle.getString("TOP_name"));
@@ -161,6 +162,8 @@ public class ContactsFragment extends BaseFragment {
                 } else if (sublevel == SUBLEVEL_MAT){
                     ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(CIRCLE_MAT_SUBLEVEL);
                 }
+            } else {
+                ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageAlpha(50);
             }
             if(bundle.getInt("LEFT_action") == ACTION_NEWSUBLEVEL){
                 int sublevel = bundle.getInt("LEFT_info");
@@ -172,12 +175,18 @@ public class ContactsFragment extends BaseFragment {
                         ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(CIRCLE_TIMER_SUBLEVEL);
                         break;
                 }
+            } else {
+                ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageAlpha(180);
             }
             if(bundle.getInt("TOP_action") == BLANK) {
                 ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(BLANK);
+            } else {
+                ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageAlpha(255);
             }
             if(bundle.getInt("BOTTOM_action") == BLANK) {
                 ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(BLANK);
+            } else {
+                ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageAlpha(100);
             }
         } else {
             Log.e("Bundle", "No bundle");

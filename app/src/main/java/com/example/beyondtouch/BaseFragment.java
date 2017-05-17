@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -143,7 +144,7 @@ public class BaseFragment extends Fragment implements SensorEventListener {
                 FLbottom.setAlpha((float) updatedAnimation.getAnimatedValue());
             }
         });
-
+        setScreenSize();
         return v;
     }
 
@@ -188,6 +189,19 @@ public class BaseFragment extends Fragment implements SensorEventListener {
         // Vibrate for 150 milliseconds
         v.vibrate(150);
     }
+
+    private void setScreenSize(){
+        ConstraintLayout cl = ((ConstraintLayout)v.findViewById(R.id.container_fragment_home_circle));
+        if(cl == null) {
+            cl = ((ConstraintLayout)v.findViewById(R.id.contracts_constraint));
+        }
+        ViewGroup.LayoutParams lp = cl.getLayoutParams();
+        float dens = getResources().getDisplayMetrics().density;
+        lp.height = (screenHeight * Math.round(dens))/4;
+        lp.width = (screenWidth * Math.round(dens))/4;
+        cl.setLayoutParams(lp);
+    }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {

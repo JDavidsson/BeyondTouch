@@ -116,6 +116,10 @@ public class HomeFragment extends BaseFragment{
         v = inflater.inflate(R.layout.circle_layout_home, container, false);
         getActivity().setTitle(getContext().getString(R.string.title_home));
         super.onCreateView(inflater,container,savedInstanceState);
+
         return v;
     }
+
+
+
 }

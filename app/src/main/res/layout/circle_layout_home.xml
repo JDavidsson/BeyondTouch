@@ -9,8 +9,9 @@
     tools:context="com.example.beyondtouch.HomeFragment">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_holder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,13 +19,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-
-
-
         <FrameLayout
             android:id="@+id/circleHolder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="circleHolder"
             android:background="@drawable/full_circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,6 +33,7 @@
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutBottom"
+                android:tag="BottomCircle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="180"
@@ -43,6 +43,7 @@
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutLeft"
                 android:layout_width="wrap_content"
+                android:tag="LeftCircle"
                 android:layout_height="wrap_content"
                 android:rotation="270"
                 app:srcCompat="@drawable/circle4" />
@@ -51,12 +52,14 @@
                 android:id="@+id/frameLayoutTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:tag="TopCircle"
                 app:srcCompat="@drawable/circle2_nostroke" />
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:tag="RightCircle"
                 android:cropToPadding="false"
                 android:rotation="90"
                 app:srcCompat="@drawable/circle2_nostroke" />
