@@ -43,34 +43,21 @@ public class HomeFragment extends BaseFragment{
                         break;
                     case BOTTOM_TIMER:
                         Log.d("BOTTOM", "BOTTOM");
-                        //aca.vibrate();
-                        /*
-                        Intent intent2 = new Intent(AlarmClock.ACTION_SET_ALARM);
-                        if (intent2.resolveActivity(getActivity().getPackageManager()) != null) {
-                            intent2.putExtra(AlarmClock.EXTRA_HOUR, 8);
-                            intent2.putExtra(AlarmClock.EXTRA_MINUTES, 10);
-                            startActivity(intent2);
-                        }
-                        */
                         playOneLevelDown();
-                        bundle.putInt("Level", ContactsFragment.SUBLEVEL_TIMES);
                         //Starts a new fragment (like this one)
                         FragmentTransaction ftBottom = getFragmentManager().beginTransaction();
-                        ContactsFragment fragmentBottom = new ContactsFragment();
-                        fragmentBottom.setArguments(bundle);
+                        ClockFragment fragmentBottom = new ClockFragment();
                         ftBottom.replace(R.id.container, fragmentBottom);
                         ftBottom.addToBackStack(null);
                         ftBottom.commit();
                         break;
+
                     case LEFT_TIMER:
                         Log.d("LEFT", "LEFT");
-
                         playOneLevelDown();
-                        bundle.putInt("Level", ContactsFragment.SUBLEVEL_CONTACTS);
                         //Starts a new fragment (like this one)
                         FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
                         ContactsFragment fragmentLeft = new ContactsFragment();
-                        fragmentLeft.setArguments(bundle);
                         ftLeft.replace(R.id.container, fragmentLeft);
                         ftLeft.addToBackStack(null);
                         ftLeft.commit();
@@ -79,19 +66,6 @@ public class HomeFragment extends BaseFragment{
                         break;
                     case TOP_TIMER:
                         Log.d("TOP", "TOP");
-                        //aca.vibrate();
-                        /*
-                        Calendar c = Calendar.getInstance();
-                        Intent intent4 = new Intent(Intent.ACTION_INSERT)
-                                .setData(CalendarContract.Events.CONTENT_URI)
-                                .putExtra(CalendarContract.Events.TITLE, "Tvättid")
-                                .putExtra(CalendarContract.Events.EVENT_LOCATION, "Tvättstugan")
-                                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, System.currentTimeMillis())
-                                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, (System.currentTimeMillis() + 1000*60*60));
-                        if (intent4.resolveActivity(getActivity().getPackageManager()) != null) {
-                            startActivity(intent4);
-                        }
-                        */
                         ConstraintLayout cl = (ConstraintLayout)v.findViewById(R.id.information_holder);
                         cl.setVisibility(View.VISIBLE);
                         FrameLayout fl = (FrameLayout)v.findViewById(R.id.circleHolder);
@@ -117,7 +91,6 @@ public class HomeFragment extends BaseFragment{
         v = inflater.inflate(R.layout.circle_layout_home, container, false);
         getActivity().setTitle(getContext().getString(R.string.title_home));
         super.onCreateView(inflater,container,savedInstanceState);
-
 
         ((ImageView)v.findViewById(R.id.frameLayoutRight)).setImageAlpha(50);
         //((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageAlpha(180);
