@@ -155,7 +155,6 @@ public class ContactsFragment extends BaseFragment {
             ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(bundle.getInt("circleSrc"));
             Log.e("CircleSrc", bundle.getInt("circleSrc") + "");
             if(bundle.getInt("RIGHT_action") == ACTION_NEWSUBLEVEL){
-                //Sublevel mat
                 int sublevel = bundle.getInt("RIGHT_info");
                 if(sublevel == SUBLEVEL_ALARM){
                     ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(CIRCLE_ALARM_SUBLEVEL);
@@ -164,7 +163,6 @@ public class ContactsFragment extends BaseFragment {
                 }
             }
             if(bundle.getInt("LEFT_action") == ACTION_NEWSUBLEVEL){
-                //Sublevel familj
                 int sublevel = bundle.getInt("LEFT_info");
                 switch(sublevel){
                     case SUBLEVEL_FAMILJ :
@@ -188,6 +186,7 @@ public class ContactsFragment extends BaseFragment {
 
     private void startNewSublevel(Bundle bundle){
         //Starts a new fragment (like this one)
+        playOneLevelDown();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ContactsFragment fragment = new ContactsFragment();
         fragment.setArguments(bundle);
@@ -299,7 +298,6 @@ public class ContactsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.circle_layout_contacts, container, false);
-        getActivity().setTitle(getContext().getString(R.string.title_home) + " >> " + "Contacts");
         super.onCreateView(inflater,container,savedInstanceState);
         visualSetUp(v);
         return v;

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(getApplicationContext(), ProximityListener.class));
+
+
 
         Fragment ff = new HomeFragment();
         //ff = new CustomFragment();
@@ -59,9 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
         this.registerReceiver(receiver, filter);
 
+
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, ff).commit();
         }
+
     }
 
 

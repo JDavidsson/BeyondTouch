@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import java.util.Calendar;
 
@@ -92,6 +93,12 @@ public class HomeFragment extends BaseFragment{
                         */
                         ConstraintLayout cl = (ConstraintLayout)v.findViewById(R.id.information_holder);
                         cl.setVisibility(View.VISIBLE);
+                        FrameLayout fl = (FrameLayout)v.findViewById(R.id.circleHolder);
+                        android.view.ViewGroup.LayoutParams new_lp = ((FrameLayout)v.findViewById(R.id.circleHolder_information)).getLayoutParams();
+                        Log.e("Height", new_lp.height +" " + fl.getHeight());
+                        new_lp.height = fl.getHeight();
+                        new_lp.width = fl.getWidth();
+                        ((FrameLayout)v.findViewById(R.id.circleHolder_information)).setLayoutParams(new_lp);
                         onPause();
                         break;
                 }
