@@ -279,11 +279,13 @@ public class ContactsFragment extends BaseFragment {
     }
 
     private String verticalText(String s){
+        return s;
+        /*
         String temp = "";
         for(int i = 0; i < s.length()-1; i++){
             temp += s.charAt(i) + "\n";
         }
-        return (temp + s.charAt(s.length()-1));
+        return (temp + s.charAt(s.length()-1));*/
     }
 
     @Override
