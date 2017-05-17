@@ -65,6 +65,18 @@ public class HomeFragment extends BaseFragment{
                         //aca.vibrate();
                         break;
                     case TOP_TIMER:
+
+                        Log.d("LEFT", "LEFT");
+                        playOneLevelDown();
+                        //Starts a new fragment (like this one)
+                        FragmentTransaction ftTop = getFragmentManager().beginTransaction();
+                        InfoFragment fragmentTop = new InfoFragment();
+                        ftTop.replace(R.id.container, fragmentTop);
+                        ftTop.addToBackStack(null);
+                        ftTop.commit();
+
+
+                        /*
                         Log.d("TOP", "TOP");
                         ConstraintLayout cl = (ConstraintLayout)v.findViewById(R.id.information_holder);
                         cl.setVisibility(View.VISIBLE);
@@ -74,7 +86,10 @@ public class HomeFragment extends BaseFragment{
                         new_lp.height = fl.getHeight();
                         new_lp.width = fl.getWidth();
                         ((FrameLayout)v.findViewById(R.id.circleHolder_information)).setLayoutParams(new_lp);
-                        onPause();
+                        //onPause();
+                        */
+
+
                         break;
                 }
                 vibrate();

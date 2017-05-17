@@ -17,9 +17,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0">
 
-
-
-
         <FrameLayout
             android:id="@+id/circleHolder"
             android:layout_width="wrap_content"
@@ -36,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="180"
-                app:srcCompat="@drawable/circle2" />
+                app:srcCompat="@drawable/purple2" />
 
 
             <com.example.beyondtouch.SquareImageView
@@ -44,13 +41,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="270"
-                app:srcCompat="@drawable/circle2" />
+                app:srcCompat="@drawable/holo_green" />
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/circle2" />
+                app:srcCompat="@drawable/purple1" />
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutRight"
@@ -58,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:cropToPadding="false"
                 android:rotation="90"
-                app:srcCompat="@drawable/circle2" />
+                app:srcCompat="@drawable/holo_blue" />
 
 
         </FrameLayout>

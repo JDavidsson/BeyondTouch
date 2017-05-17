@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     CustomFragment ff;
     private BroadcastReceiver receiver;
     private MediaPlayer mp2;
+    private boolean inForeground = true;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -40,10 +41,15 @@ public class MainActivity extends AppCompatActivity {
                 if (intent.filterEquals(new Intent("Proximity"))){
                     System.out.println("Proximity intent recived");
                     mp2.start();
+                    if(inForeground){
+                        getSupportFragmentManager().popBackStack();
+                    }
+                    else{
                     Intent i = getBaseContext().getPackageManager()
                             .getLaunchIntentForPackage(getBaseContext().getPackageName());
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
+                    }
                 }
                 else {
                     //do something you need when broadcast received
@@ -70,10 +76,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        inForeground = false;
+    }
 
     @Override
     public void onResume() {
         super.onResume();
+        inForeground = true;
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction("Proximity");

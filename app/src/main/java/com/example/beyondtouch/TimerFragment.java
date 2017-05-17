@@ -1,8 +1,11 @@
 package com.example.beyondtouch;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.provider.AlarmClock;
 import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentTransaction;
@@ -20,37 +23,35 @@ import android.widget.ImageView;
 public class TimerFragment extends BaseFragment {
 
 
-    public TimerFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
 
+                Intent intent = new Intent(Intent.ACTION_DIAL);
                 Bundle bundle = new Bundle();
                 switch(msg.what) {
                     case RIGHT_TIMER:
-
-
+                        //Intent intent = new Intent(Intent.ACTION_CALL);
+                        startActivity(intent);
                         break;
                     case BOTTOM_TIMER:
-
-
+                        startActivity(intent);
                         break;
-
                     case LEFT_TIMER:
 
+                        startActivity(intent);
                         break;
                     case TOP_TIMER:
-
+                        startActivity(intent);
                         break;
                 }
                 vibrate();
             };
         };
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +64,7 @@ public class TimerFragment extends BaseFragment {
         super.onCreateView(inflater,container,savedInstanceState);
         return v;
     }
+
 
 
 

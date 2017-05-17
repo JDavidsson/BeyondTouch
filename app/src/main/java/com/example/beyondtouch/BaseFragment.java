@@ -46,8 +46,8 @@ public class BaseFragment extends Fragment implements SensorEventListener {
     protected Timer timer;
     protected OurTimerTask ott;
     public static final int time = 750; // time elapsed before app opens
-    public final static float defaultAlpha = 0.3f; // alpha value when not tilted
-    public final static float startAlpha = 0.5f; // alpha value when a tilt is initialized
+    public final static float defaultAlpha = 0.4f; // alpha value when not tilted
+    public final static float startAlpha = 0.6f; // alpha value when a tilt is initialized
     protected View v;
     protected ValueAnimator animationTop;
     protected ValueAnimator animationRight;

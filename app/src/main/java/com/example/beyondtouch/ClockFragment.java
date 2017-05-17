@@ -2,6 +2,8 @@ package com.example.beyondtouch;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,13 @@ public class ClockFragment extends BaseFragment {
                 switch(msg.what) {
                     case RIGHT_TIMER:
 
+                        playOneLevelDown();
+                        //Starts a new fragment (like this one)
+                        FragmentTransaction ftRight = getFragmentManager().beginTransaction();
+                        AlarmFragment fragmenRight = new AlarmFragment();
+                        ftRight.replace(R.id.container, fragmenRight);
+                        ftRight.addToBackStack(null);
+                        ftRight.commit();
 
                         break;
                     case BOTTOM_TIMER:
@@ -30,6 +39,13 @@ public class ClockFragment extends BaseFragment {
                         break;
 
                     case LEFT_TIMER:
+                        playOneLevelDown();
+                        //Starts a new fragment (like this one)
+                        FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
+                        TimerFragment fragmentLeft = new TimerFragment();
+                        ftLeft.replace(R.id.container, fragmentLeft);
+                        ftLeft.addToBackStack(null);
+                        ftLeft.commit();
 
                         break;
                     case TOP_TIMER:
