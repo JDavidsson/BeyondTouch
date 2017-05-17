@@ -145,7 +145,6 @@ public class ContactsFragment extends BaseFragment {
     private void visualSetUp(View view){
         Bundle bundle = this.getArguments();
         if(bundle != null){
-
             ((TextView)view.findViewById(R.id.textView_bottom)).setText(bundle.getString("BOTTOM_name"));
             ((TextView)view.findViewById(R.id.textView_left)).setText(bundle.getString("LEFT_name"));
             ((TextView)view.findViewById(R.id.textView_top)).setText(bundle.getString("TOP_name"));

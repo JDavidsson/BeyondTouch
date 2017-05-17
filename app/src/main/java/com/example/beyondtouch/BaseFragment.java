@@ -2,6 +2,7 @@ package com.example.beyondtouch;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,6 +16,8 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,7 +147,7 @@ public class BaseFragment extends Fragment implements SensorEventListener {
                 FLbottom.setAlpha((float) updatedAnimation.getAnimatedValue());
             }
         });
-        setScreenSize();
+        //setScreenSize();
         return v;
     }
 
@@ -173,9 +176,11 @@ public class BaseFragment extends Fragment implements SensorEventListener {
         void onFragmentInteraction(Uri uri);
     }
     public void vibrate(){
-        Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 100 milliseconds
-        v.vibrate(100);
+        if(isAdded()) {
+            Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 100 milliseconds
+            v.vibrate(100);
+        }
     }
 
     // currently being replaced by proximity functionalities in MainActivity and ProximityListener
@@ -197,8 +202,10 @@ public class BaseFragment extends Fragment implements SensorEventListener {
         }
         ViewGroup.LayoutParams lp = cl.getLayoutParams();
         float dens = getResources().getDisplayMetrics().density;
-        lp.height = (screenHeight * Math.round(dens))/4;
-        lp.width = (screenWidth * Math.round(dens))/4;
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, screenHeight/4, getResources().getDisplayMetrics());
+        int width=  (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, screenWidth/4, getResources().getDisplayMetrics());
+        lp.height = height;
+        lp.width = width;
         cl.setLayoutParams(lp);
     }
 

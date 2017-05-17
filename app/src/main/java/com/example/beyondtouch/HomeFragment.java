@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import java.util.Calendar;
 
@@ -116,6 +117,12 @@ public class HomeFragment extends BaseFragment{
         v = inflater.inflate(R.layout.circle_layout_home, container, false);
         getActivity().setTitle(getContext().getString(R.string.title_home));
         super.onCreateView(inflater,container,savedInstanceState);
+
+
+        ((ImageView)v.findViewById(R.id.frameLayoutRight)).setImageAlpha(50);
+        //((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageAlpha(180);
+        ((ImageView)v.findViewById(R.id.frameLayoutTop)).setImageAlpha(255);
+       // ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageAlpha(100);
 
         return v;
     }
