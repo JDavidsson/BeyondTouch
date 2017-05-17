@@ -138,7 +138,4 @@ public class CustomFragment extends Fragment {
         return layout;
     }
 
-
-
-
 }
