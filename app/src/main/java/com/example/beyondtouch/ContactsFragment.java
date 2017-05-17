@@ -110,35 +110,35 @@ public class ContactsFragment extends BaseFragment {
             break;
             case SUBLEVEL_TIMER : {
                 bundle.putInt("Level", SUBLEVEL_TIMER);
-                bundle.putString("RIGHT_name", "30");
+                bundle.putString("RIGHT_name", "5");
                 bundle.putString("LEFT_name", "10");
                 bundle.putString("TOP_name", "15");
-                bundle.putString("BOTTOM_name", "5");
+                bundle.putString("BOTTOM_name", "30");
                 bundle.putInt("RIGHT_action", ACTION_TIMER);
                 bundle.putInt("LEFT_action", ACTION_TIMER);
                 bundle.putInt("TOP_action", ACTION_TIMER);
                 bundle.putInt("BOTTOM_action", ACTION_TIMER);
-                bundle.putInt("RIGHT_info", 30);
+                bundle.putInt("RIGHT_info", 5);
                 bundle.putInt("LEFT_info", 10);
                 bundle.putInt("TOP_info", 15);
-                bundle.putInt("BOTTOM_info", 5);
+                bundle.putInt("BOTTOM_info", 30);
                 bundle.putInt("circleSrc", CIRCLE_TIMER);
             }
             break;
             case SUBLEVEL_ALARM : {
                 bundle.putInt("Level", SUBLEVEL_ALARM);
-                bundle.putString("RIGHT_name", "8:10");
-                bundle.putString("LEFT_name", "9:20");
-                bundle.putString("TOP_name", "10:15");
-                bundle.putString("BOTTOM_name", "11:00");
+                bundle.putString("RIGHT_name", "11 00");
+                bundle.putString("LEFT_name", "10 15");
+                bundle.putString("TOP_name", "9 20");
+                bundle.putString("BOTTOM_name", "8:10");
                 bundle.putInt("RIGHT_action", ACTION_ALARM);
                 bundle.putInt("LEFT_action", ACTION_ALARM);
                 bundle.putInt("TOP_action", ACTION_ALARM);
                 bundle.putInt("BOTTOM_action", ACTION_ALARM);
-                bundle.putString("RIGHT_info", "8 10");
-                bundle.putString("LEFT_info", "9 20");
-                bundle.putString("TOP_info", "10 15");
-                bundle.putString("BOTTOM_info", "11 00");
+                bundle.putString("RIGHT_info", "11 00");
+                bundle.putString("LEFT_info", "10 15");
+                bundle.putString("TOP_info", "9 20");
+                bundle.putString("BOTTOM_info", "8 10");
                 bundle.putInt("circleSrc", CIRCLE_ALARM);
             }
             break;
@@ -156,13 +156,13 @@ public class ContactsFragment extends BaseFragment {
             ArrayList<ImageView> circleParts = new ArrayList<>();
             circleParts.add((ImageView)view.findViewById(R.id.frameLayoutBottom));
             circleParts.add((ImageView)view.findViewById(R.id.frameLayoutLeft));
-            circleParts.add((ImageView)view.findViewById(R.id.frameLayoutRight));
             circleParts.add((ImageView)view.findViewById(R.id.frameLayoutTop));
-
+            circleParts.add((ImageView)view.findViewById(R.id.frameLayoutRight));
+/*
             ((TextView)view.findViewById(R.id.textView_bottom)).setText(bundle.getString("BOTTOM_name"));
             ((TextView)view.findViewById(R.id.textView_left)).setText(bundle.getString("LEFT_name"));
             ((TextView)view.findViewById(R.id.textView_top)).setText(bundle.getString("TOP_name"));
-            ((TextView)view.findViewById(R.id.textView_right)).setText(bundle.getString("RIGHT_name"));
+            ((TextView)view.findViewById(R.id.textView_right)).setText(bundle.getString("RIGHT_name"));*/
             ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(bundle.getInt("circleSrc"));
             ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(bundle.getInt("circleSrc"));
             ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(bundle.getInt("circleSrc"));
@@ -171,28 +171,45 @@ public class ContactsFragment extends BaseFragment {
 
             int level = bundle.getInt("Level");
             String color = "";
+            String currLevel = "";
             switch(level){
-                case SUBLEVEL_ALARM : color = "blue"; break;
-                case SUBLEVEL_CONTACTS : color = "purple"; break;
-                case SUBLEVEL_FAMILJ : color = "blue"; break;
-                case SUBLEVEL_TIMER : color = "green"; break;
-                case SUBLEVEL_MAT : color = "blue"; break;
+                case SUBLEVEL_TIMES : {
+                    currLevel = "times";
+                    ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(R.drawable.holo_green_timer);
+                    ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(0);
+                    ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(0);
+                    ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(R.drawable.holo_blue_alarm);
+                }
+                break;
+                case SUBLEVEL_CONTACTS : {
+                    currLevel = "contacts";
+                    ((ImageView) view.findViewById(R.id.frameLayoutLeft)).setImageResource(R.drawable.holo_green_familj);
+                    ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(R.drawable.purple_bottom);
+                    ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(R.drawable.purple_top);
+                    ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(R.drawable.holo_blue_mat);
+                }
+                break;
+                case SUBLEVEL_ALARM : color = "blue"; currLevel = "alarm"; break;
+                case SUBLEVEL_FAMILJ : color = "green"; currLevel = "familj";  break;
+                case SUBLEVEL_TIMER : color = "green"; currLevel = "timer";  break;
+                case SUBLEVEL_MAT : color = "blue"; currLevel = "mat";  break;
             }
             for(int i = 0; i < circleParts.size(); i++) {
-                if(color.length() > 0) {
-                    Context context = circleParts.get(i).getContext();
-                    int id = context.getResources().getIdentifier(color + (i + 1), "drawable", getActivity().getPackageName());
-                    circleParts.get(i).setImageResource(id);
-                }else {
-                    circleParts.get(i).setImageResource(0);
-                }
-            }
-            if(level == SUBLEVEL_CONTACTS || level == SUBLEVEL_TIMES){
-                ((ImageView)view.findViewById(R.id.frameLayoutRight)).setImageResource(R.drawable.holo_blue);
-                ((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageResource(R.drawable.holo_green);
-                if(level == SUBLEVEL_TIMES){
-                    ((ImageView)view.findViewById(R.id.frameLayoutTop)).setImageResource(0);
-                    ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageResource(0);
+                if(!currLevel.equals("contacts") && !currLevel.equals("times")) {
+                    if(color.length() > 0) {
+                        String currId;
+                        Log.e("level", currLevel);
+                        if (currLevel.length() > 0) {
+                            currId = color + (i + 1) + "_" + currLevel;
+                        } else {
+                            currId = color + (i + 1);
+                        }
+                        Context context = circleParts.get(i).getContext();
+                        int id = context.getResources().getIdentifier(currId, "drawable", getActivity().getPackageName());
+                        circleParts.get(i).setImageResource(id);
+                    } else {
+                        circleParts.get(i).setImageResource(0);
+                    }
                 }
             }
 

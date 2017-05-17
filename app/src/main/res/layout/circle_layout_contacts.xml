@@ -18,8 +18,6 @@
         app:layout_constraintHorizontal_bias="0.0">
 
 
-
-
         <FrameLayout
             android:id="@+id/circleHolder"
             android:layout_width="wrap_content"
@@ -39,6 +37,7 @@
                 app:srcCompat="@drawable/circle2" />
 
 
+
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutLeft"
                 android:layout_width="wrap_content"
@@ -46,11 +45,13 @@
                 android:rotation="270"
                 app:srcCompat="@drawable/circle2" />
 
+
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/circle2" />
+
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutRight"
@@ -61,82 +62,11 @@
                 app:srcCompat="@drawable/circle2" />
 
 
+
         </FrameLayout>
 
 
-        <TextView
-            android:id="@+id/textView_left"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="240dp"
-            android:layout_marginTop="8dp"
-            android:rotation="270"
-            android:text="Familj"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/circleHolder"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/circleHolder"
-            app:layout_constraintVertical_bias="0.502" />
 
-        <TextView
-            android:id="@+id/textView_right"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="240dp"
-            android:layout_marginTop="8dp"
-            android:rotation="90"
-            android:text="Mat"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/circleHolder"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/circleHolder"
-            app:layout_constraintVertical_bias="0.502" />
-
-
-        <TextView
-            android:id="@+id/textView_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="22dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:text="112"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/circleHolder"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <TextView
-            android:id="@+id/textView_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:text="Erik Nilsson"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/circleHolder"
-            app:layout_constraintHorizontal_bias="0.502" />
 
 
         <ImageView
