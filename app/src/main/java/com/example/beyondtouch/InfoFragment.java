@@ -1,6 +1,7 @@
 package com.example.beyondtouch;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,7 +18,14 @@ public class InfoFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        taskHandler = new Handler(){
+            public void dispatchMessage(android.os.Message msg){
+
+            };
+        };
+
     }
 
 

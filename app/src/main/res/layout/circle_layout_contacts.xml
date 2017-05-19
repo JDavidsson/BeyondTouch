@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="180"
-                app:srcCompat="@drawable/purple2" />
+                app:srcCompat="@drawable/purple_bottom" />
 
 
             <com.example.beyondtouch.SquareImageView
@@ -41,13 +41,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rotation="270"
-                app:srcCompat="@drawable/holo_green" />
+                app:srcCompat="@drawable/holo_green_familj" />
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/purple1" />
+                app:srcCompat="@drawable/purple_top" />
 
             <com.example.beyondtouch.SquareImageView
                 android:id="@+id/frameLayoutRight"
@@ -55,85 +55,19 @@
                 android:layout_height="wrap_content"
                 android:cropToPadding="false"
                 android:rotation="90"
-                app:srcCompat="@drawable/holo_blue" />
+                app:srcCompat="@drawable/holo_blue_mat" />
 
 
         </FrameLayout>
 
 
-        <TextView
-            android:id="@+id/textView_left"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="240dp"
-            android:layout_marginTop="8dp"
-            android:rotation="270"
-            android:text="Familj"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/circleHolder"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/circleHolder"
-            app:layout_constraintVertical_bias="0.502" />
-
-        <TextView
-            android:id="@+id/textView_right"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="240dp"
-            android:layout_marginTop="8dp"
-            android:rotation="90"
-            android:text="Mat"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/circleHolder"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/circleHolder"
-            app:layout_constraintVertical_bias="0.502" />
 
 
-        <TextView
-            android:id="@+id/textView_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="22dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:text="112"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/circleHolder"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
 
-        <TextView
-            android:id="@+id/textView_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:text="Erik Nilsson"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/circleHolder"
-            app:layout_constraintHorizontal_bias="0.502" />
+
+
+
+
 
 
         <ImageView
@@ -156,7 +90,7 @@
             android:layout_marginTop="8dp"
             android:text="Cover phone to go back"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="@color/textColor"
             android:textSize="18sp"
             android:textStyle="italic"
             app:layout_constraintLeft_toLeftOf="parent"

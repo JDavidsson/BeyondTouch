@@ -28,36 +28,31 @@ public class AlarmFragment extends BaseFragment {
                 public void dispatchMessage(android.os.Message msg){
                 Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
                 Bundle bundle = new Bundle();
+                    int hour = 0;
+                    int minutes = 0;
                 switch(msg.what) {
                     case RIGHT_TIMER:
-                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                            intent.putExtra(AlarmClock.EXTRA_HOUR, 7);
-                            startActivity(intent);
-                        }
+                        hour = 9;
+                        minutes = 20;
                         break;
                     case BOTTOM_TIMER:
-                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                            intent.putExtra(AlarmClock.EXTRA_HOUR, 8);
-                            intent.putExtra(AlarmClock.EXTRA_MINUTES, 15);
-                            startActivity(intent);
-                        }
+                        hour = 10;
+                        minutes = 15;
                         break;
 
                     case LEFT_TIMER:
-                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                            intent.putExtra(AlarmClock.EXTRA_HOUR, 9);
-                            intent.putExtra(AlarmClock.EXTRA_MINUTES, 30);
-                            startActivity(intent);
-                        }
+                        hour = 11;
+                        minutes = 0;
                         break;
                     case TOP_TIMER:
-                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                            intent.putExtra(AlarmClock.EXTRA_HOUR, 10);
-                            intent.putExtra(AlarmClock.EXTRA_MINUTES, 30);
-                            startActivity(intent);
-                        }
+                        hour = 8;
+                        minutes = 10;
                         break;
                 }
+
+                    intent.putExtra(AlarmClock.EXTRA_HOUR, hour);
+                    intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+                    startActivity(intent);
                 vibrate();
                 };
             };

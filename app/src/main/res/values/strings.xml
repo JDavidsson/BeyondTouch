@@ -8,5 +8,5 @@
     <string name="title_food">Food</string>
     <string name="title_contacts">Contacts</string>
     <string name="title_info">Info</string>
-    <string name="infotext">Tilt phone to make choices \n Cover phone to go back</string>
+    <string name="infotext">Tilt phone to make choices\n\n Cover phone to go back\n\nApp can be opened from anywhere by covering your phone</string>
 </resources>

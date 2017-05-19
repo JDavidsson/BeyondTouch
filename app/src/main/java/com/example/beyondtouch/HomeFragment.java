@@ -66,7 +66,6 @@ public class HomeFragment extends BaseFragment{
                         break;
                     case TOP_TIMER:
 
-                        Log.d("LEFT", "LEFT");
                         playOneLevelDown();
                         //Starts a new fragment (like this one)
                         FragmentTransaction ftTop = getFragmentManager().beginTransaction();
@@ -106,11 +105,6 @@ public class HomeFragment extends BaseFragment{
         v = inflater.inflate(R.layout.circle_layout_home, container, false);
         getActivity().setTitle(getContext().getString(R.string.title_home));
         super.onCreateView(inflater,container,savedInstanceState);
-
-        ((ImageView)v.findViewById(R.id.frameLayoutRight)).setImageAlpha(50);
-        //((ImageView)view.findViewById(R.id.frameLayoutLeft)).setImageAlpha(180);
-        ((ImageView)v.findViewById(R.id.frameLayoutTop)).setImageAlpha(255);
-       // ((ImageView)view.findViewById(R.id.frameLayoutBottom)).setImageAlpha(100);
 
         return v;
     }

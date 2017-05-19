@@ -29,24 +29,26 @@ public class TimerFragment extends BaseFragment {
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
 
-                Intent intent = new Intent(Intent.ACTION_DIAL);
+                int time = 0;
                 Bundle bundle = new Bundle();
                 switch(msg.what) {
                     case RIGHT_TIMER:
-                        //Intent intent = new Intent(Intent.ACTION_CALL);
-                        startActivity(intent);
+                        time = 60* 15;
                         break;
                     case BOTTOM_TIMER:
-                        startActivity(intent);
+                        time = 60 * 10;
                         break;
                     case LEFT_TIMER:
-
-                        startActivity(intent);
+                        time = 60 * 5;
                         break;
                     case TOP_TIMER:
-                        startActivity(intent);
+                        time = 30 * 60;
                         break;
                 }
+                Intent intent = new Intent(AlarmClock.ACTION_SET_TIMER)
+                        .putExtra(AlarmClock.EXTRA_MESSAGE, "Timer " + time)
+                        .putExtra(AlarmClock.EXTRA_LENGTH, time);
+                startActivity(intent);
                 vibrate();
             };
         };
