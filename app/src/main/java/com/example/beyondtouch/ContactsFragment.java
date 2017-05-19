@@ -36,48 +36,50 @@ public class ContactsFragment extends BaseFragment {
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
 
-                Bundle bundle = new Bundle();
-                switch(msg.what) {
-                    case RIGHT_TIMER:
-                        Log.d("LEFT", "LEFT");
-                        playOneLevelDown();
-                        //Starts a new fragment (like this one)
-                        FragmentTransaction ftRight = getFragmentManager().beginTransaction();
-                        FoodFragment fragmenRight = new FoodFragment();
-                        ftRight.replace(R.id.container, fragmenRight);
-                        ftRight.addToBackStack(null);
-                        ftRight.commit();
+                if(isAdded()) {
+                    Bundle bundle = new Bundle();
+                    switch (msg.what) {
+                        case RIGHT_TIMER:
+                            Log.d("LEFT", "LEFT");
+                            playOneLevelDown();
+                            //Starts a new fragment (like this one)
+                            FragmentTransaction ftRight = getFragmentManager().beginTransaction();
+                            FoodFragment fragmenRight = new FoodFragment();
+                            ftRight.replace(R.id.container, fragmenRight);
+                            ftRight.addToBackStack(null);
+                            ftRight.commit();
 
-                        break;
-                    case BOTTOM_TIMER:
+                            break;
+                        case BOTTOM_TIMER:
 
-                        //Intent intent = new Intent(Intent.ACTION_CALL);
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:" + "90510"));
-                        startActivity(intent);
-                        break;
+                            //Intent intent = new Intent(Intent.ACTION_CALL);
+                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse("tel:" + "90510"));
+                            startActivity(intent);
+                            break;
 
-                    case LEFT_TIMER:
+                        case LEFT_TIMER:
 
-                        Log.d("LEFT", "LEFT");
-                        playOneLevelDown();
-                        //Starts a new fragment (like this one)
-                        FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
-                        FamilyFragment fragmentLeft = new FamilyFragment();
-                        ftLeft.replace(R.id.container, fragmentLeft);
-                        ftLeft.addToBackStack(null);
-                        ftLeft.commit();
+                            Log.d("LEFT", "LEFT");
+                            playOneLevelDown();
+                            //Starts a new fragment (like this one)
+                            FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
+                            FamilyFragment fragmentLeft = new FamilyFragment();
+                            ftLeft.replace(R.id.container, fragmentLeft);
+                            ftLeft.addToBackStack(null);
+                            ftLeft.commit();
 
-                        break;
-                    case TOP_TIMER:
-                        //Intent intent = new Intent(Intent.ACTION_CALL);
-                        Intent intent2 = new Intent(Intent.ACTION_DIAL);
-                        intent2.setData(Uri.parse("tel:" + "90510"));
-                        startActivity(intent2);
+                            break;
+                        case TOP_TIMER:
+                            //Intent intent = new Intent(Intent.ACTION_CALL);
+                            Intent intent2 = new Intent(Intent.ACTION_DIAL);
+                            intent2.setData(Uri.parse("tel:" + "90510"));
+                            startActivity(intent2);
 
-                        break;
+                            break;
+                    }
+                    vibrate();
                 }
-                vibrate();
             };
         };
     }

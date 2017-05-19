@@ -25,36 +25,40 @@ public class AlarmFragment extends BaseFragment {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             taskHandler = new Handler(){
-                public void dispatchMessage(android.os.Message msg){
-                Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
-                Bundle bundle = new Bundle();
-                    int hour = 0;
-                    int minutes = 0;
-                switch(msg.what) {
-                    case RIGHT_TIMER:
-                        hour = 9;
-                        minutes = 20;
-                        break;
-                    case BOTTOM_TIMER:
-                        hour = 10;
-                        minutes = 15;
-                        break;
+                public void dispatchMessage(android.os.Message msg) {
 
-                    case LEFT_TIMER:
-                        hour = 11;
-                        minutes = 0;
-                        break;
-                    case TOP_TIMER:
-                        hour = 8;
-                        minutes = 10;
-                        break;
+                    if (isAdded()) {
+                        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+                        Bundle bundle = new Bundle();
+                        int hour = 0;
+                        int minutes = 0;
+                        switch (msg.what) {
+                            case RIGHT_TIMER:
+                                hour = 9;
+                                minutes = 20;
+                                break;
+                            case BOTTOM_TIMER:
+                                hour = 10;
+                                minutes = 15;
+                                break;
+
+                            case LEFT_TIMER:
+                                hour = 11;
+                                minutes = 0;
+                                break;
+                            case TOP_TIMER:
+                                hour = 8;
+                                minutes = 10;
+                                break;
+                        }
+
+                        intent.putExtra(AlarmClock.EXTRA_HOUR, hour);
+                        intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+                        startActivity(intent);
+                        vibrate();
+                    }
+                    ;
                 }
-
-                    intent.putExtra(AlarmClock.EXTRA_HOUR, hour);
-                    intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
-                    startActivity(intent);
-                vibrate();
-                };
             };
             }
 

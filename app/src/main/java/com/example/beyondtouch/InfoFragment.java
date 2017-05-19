@@ -21,6 +21,7 @@ public class InfoFragment extends BaseFragment {
 
         super.onCreate(savedInstanceState);
         taskHandler = new Handler(){
+
             public void dispatchMessage(android.os.Message msg){
 
             };

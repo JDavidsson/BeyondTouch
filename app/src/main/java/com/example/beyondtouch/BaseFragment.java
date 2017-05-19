@@ -100,6 +100,7 @@ public class BaseFragment extends Fragment implements SensorEventListener {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -20,39 +20,41 @@ public class ClockFragment extends BaseFragment {
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
 
-                Bundle bundle = new Bundle();
-                switch(msg.what) {
-                    case RIGHT_TIMER:
+                if(isAdded()) {
+                    Bundle bundle = new Bundle();
+                    switch (msg.what) {
+                        case RIGHT_TIMER:
 
-                        playOneLevelDown();
-                        //Starts a new fragment (like this one)
-                        FragmentTransaction ftRight = getFragmentManager().beginTransaction();
-                        AlarmFragment fragmenRight = new AlarmFragment();
-                        ftRight.replace(R.id.container, fragmenRight);
-                        ftRight.addToBackStack(null);
-                        ftRight.commit();
+                            playOneLevelDown();
+                            //Starts a new fragment (like this one)
+                            FragmentTransaction ftRight = getFragmentManager().beginTransaction();
+                            AlarmFragment fragmenRight = new AlarmFragment();
+                            ftRight.replace(R.id.container, fragmenRight);
+                            ftRight.addToBackStack(null);
+                            ftRight.commit();
 
-                        break;
-                    case BOTTOM_TIMER:
+                            break;
+                        case BOTTOM_TIMER:
 
 
-                        break;
+                            break;
 
-                    case LEFT_TIMER:
-                        playOneLevelDown();
-                        //Starts a new fragment (like this one)
-                        FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
-                        TimerFragment fragmentLeft = new TimerFragment();
-                        ftLeft.replace(R.id.container, fragmentLeft);
-                        ftLeft.addToBackStack(null);
-                        ftLeft.commit();
+                        case LEFT_TIMER:
+                            playOneLevelDown();
+                            //Starts a new fragment (like this one)
+                            FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
+                            TimerFragment fragmentLeft = new TimerFragment();
+                            ftLeft.replace(R.id.container, fragmentLeft);
+                            ftLeft.addToBackStack(null);
+                            ftLeft.commit();
 
-                        break;
-                    case TOP_TIMER:
+                            break;
+                        case TOP_TIMER:
 
-                        break;
+                            break;
+                    }
+                    vibrate();
                 }
-                vibrate();
             };
         };
     }

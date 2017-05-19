@@ -21,6 +21,7 @@ public class FoodFragment extends BaseFragment {
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
 
+                if(isAdded()) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + "90510"));
                 Bundle bundle = new Bundle();
@@ -42,6 +43,7 @@ public class FoodFragment extends BaseFragment {
                         break;
                 }
                 vibrate();
+                }
             };
         };
     }

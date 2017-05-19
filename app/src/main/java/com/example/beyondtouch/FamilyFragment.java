@@ -20,28 +20,30 @@ public class FamilyFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
+                if(isAdded()) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + "90510"));
+                    Bundle bundle = new Bundle();
+                    switch (msg.what) {
+                        case RIGHT_TIMER:
+                            //Intent intent = new Intent(Intent.ACTION_CALL);
+                            startActivity(intent);
+                            break;
+                        case BOTTOM_TIMER:
+                            startActivity(intent);
+                            break;
 
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + "90510"));
-                Bundle bundle = new Bundle();
-                switch(msg.what) {
-                    case RIGHT_TIMER:
-                        //Intent intent = new Intent(Intent.ACTION_CALL);
-                        startActivity(intent);
-                        break;
-                    case BOTTOM_TIMER:
-                        startActivity(intent);
-                        break;
+                        case LEFT_TIMER:
 
-                    case LEFT_TIMER:
-
-                        startActivity(intent);
-                        break;
-                    case TOP_TIMER:
-                        startActivity(intent);
-                        break;
+                            startActivity(intent);
+                            break;
+                        case TOP_TIMER:
+                            startActivity(intent);
+                            break;
+                    }
+                    vibrate();
                 }
-                vibrate();
+
             };
         };
     }

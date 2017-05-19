@@ -29,50 +29,51 @@ public class HomeFragment extends BaseFragment{
         taskHandler = new Handler(){
             public void dispatchMessage(android.os.Message msg){
 
-                Bundle bundle = new Bundle();
-                switch(msg.what) {
-                    case RIGHT_TIMER:
-                        //aca.vibrate();
-                        Log.d("RIGHT", "RIGHT");
+                if(isAdded()) {
+                    Bundle bundle = new Bundle();
+                    switch (msg.what) {
+                        case RIGHT_TIMER:
+                            //aca.vibrate();
+                            Log.d("RIGHT", "RIGHT");
 
-                        Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                            startActivity(intent);
-                        }
+                            Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                            if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                                startActivity(intent);
+                            }
 
-                        break;
-                    case BOTTOM_TIMER:
-                        Log.d("BOTTOM", "BOTTOM");
-                        playOneLevelDown();
-                        //Starts a new fragment (like this one)
-                        FragmentTransaction ftBottom = getFragmentManager().beginTransaction();
-                        ClockFragment fragmentBottom = new ClockFragment();
-                        ftBottom.replace(R.id.container, fragmentBottom);
-                        ftBottom.addToBackStack(null);
-                        ftBottom.commit();
-                        break;
+                            break;
+                        case BOTTOM_TIMER:
+                            Log.d("BOTTOM", "BOTTOM");
+                            playOneLevelDown();
+                            //Starts a new fragment (like this one)
+                            FragmentTransaction ftBottom = getFragmentManager().beginTransaction();
+                            ClockFragment fragmentBottom = new ClockFragment();
+                            ftBottom.replace(R.id.container, fragmentBottom);
+                            ftBottom.addToBackStack(null);
+                            ftBottom.commit();
+                            break;
 
-                    case LEFT_TIMER:
-                        Log.d("LEFT", "LEFT");
-                        playOneLevelDown();
-                        //Starts a new fragment (like this one)
-                        FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
-                        ContactsFragment fragmentLeft = new ContactsFragment();
-                        ftLeft.replace(R.id.container, fragmentLeft);
-                        ftLeft.addToBackStack(null);
-                        ftLeft.commit();
+                        case LEFT_TIMER:
+                            Log.d("LEFT", "LEFT");
+                            playOneLevelDown();
+                            //Starts a new fragment (like this one)
+                            FragmentTransaction ftLeft = getFragmentManager().beginTransaction();
+                            ContactsFragment fragmentLeft = new ContactsFragment();
+                            ftLeft.replace(R.id.container, fragmentLeft);
+                            ftLeft.addToBackStack(null);
+                            ftLeft.commit();
 
-                        //aca.vibrate();
-                        break;
-                    case TOP_TIMER:
+                            //aca.vibrate();
+                            break;
+                        case TOP_TIMER:
 
-                        playOneLevelDown();
-                        //Starts a new fragment (like this one)
-                        FragmentTransaction ftTop = getFragmentManager().beginTransaction();
-                        InfoFragment fragmentTop = new InfoFragment();
-                        ftTop.replace(R.id.container, fragmentTop);
-                        ftTop.addToBackStack(null);
-                        ftTop.commit();
+                            playOneLevelDown();
+                            //Starts a new fragment (like this one)
+                            FragmentTransaction ftTop = getFragmentManager().beginTransaction();
+                            InfoFragment fragmentTop = new InfoFragment();
+                            ftTop.replace(R.id.container, fragmentTop);
+                            ftTop.addToBackStack(null);
+                            ftTop.commit();
 
 
                         /*
@@ -89,9 +90,10 @@ public class HomeFragment extends BaseFragment{
                         */
 
 
-                        break;
+                            break;
+                    }
+                    vibrate();
                 }
-                vibrate();
             };
         };
     }
