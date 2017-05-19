@@ -33,6 +33,7 @@ public class ClockFragment extends BaseFragment {
                             ftRight.addToBackStack(null);
                             ftRight.commit();
 
+                            vibrate();
                             break;
                         case BOTTOM_TIMER:
 
@@ -48,12 +49,12 @@ public class ClockFragment extends BaseFragment {
                             ftLeft.addToBackStack(null);
                             ftLeft.commit();
 
+                            vibrate();
                             break;
                         case TOP_TIMER:
 
                             break;
                     }
-                    vibrate();
                 }
             };
         };
